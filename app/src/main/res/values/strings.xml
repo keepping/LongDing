@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LongDing</string>
+    <string name="video_live">视频直播</string>
+    <string name="text_live">文字直播</string>
+    <string name="expert_opinion">专家建议</string>
+    <string name="mine">我的</string>
+    <string name="disclaimer">免责声明:</string>
+    <string name="disclaimer_info">1、投资有风险，入市须谨慎。 \n2、分析师所发表言论均代表其个人对市场所持观点，投资者应充分考虑后，据此操作风险自但。 \n3、本平台发表之所有声明，以及其修改权、更新权及最终解释权均归钦龙直播所有。 </string>
+</resources>

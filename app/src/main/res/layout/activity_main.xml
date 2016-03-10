@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.longding999.longding.MainActivity">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/rb_gray"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rb_videoLive"
+            style="@style/MyRadioButtonStyle"
+            android:text="@string/video_live"
+            android:drawableTop="@drawable/slt_rb_home"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_textLive"
+            android:text="@string/text_live"
+            style="@style/MyRadioButtonStyle"
+            android:drawableTop="@drawable/slt_rb_home"/>
+
+        <RadioButton
+            android:id="@+id/rb_expertOpinion"
+            android:text="@string/expert_opinion"
+            style="@style/MyRadioButtonStyle"
+            android:drawableTop="@drawable/slt_rb_home"/>
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            android:text="@string/mine"
+            style="@style/MyRadioButtonStyle"
+            android:drawableTop="@drawable/slt_rb_home"/>
+    </RadioGroup>
+
+</LinearLayout>
