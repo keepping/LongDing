@@ -61,11 +61,11 @@ public class TeacherFragment extends BasicFragment{
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.TEACHER_INFO, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Logger.e(s);
+//                Logger.e(s);
 
                 try {
                     JSONArray jsonArray = new JSONArray(s);
-                    Logger.e(jsonArray.toString());
+//                    Logger.e(jsonArray.toString());
                     for (int i = 0;i <jsonArray.length();i ++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         String id = object.getString("Id");
@@ -76,7 +76,7 @@ public class TeacherFragment extends BasicFragment{
                     }
                     mAdapter = new TeacherAdapter(mList,mActivity);
                     mListView.setAdapter(mAdapter);
-                     Logger.e(mList.toString());
+//                     Logger.e(mList.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

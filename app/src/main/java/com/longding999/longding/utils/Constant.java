@@ -14,4 +14,7 @@ public class Constant {
     //老师信息地址
     public static String TEACHER_INFO = "http://139.196.202.93/Teacher/api/teacher";
 
+    //日刊信息地址
+    public static String DIURNAL_INFO = "http://139.196.202.93/Diurnal/api/diurnal";
+
 }
