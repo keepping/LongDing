@@ -1,5 +1,7 @@
 package com.longding999.longding.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import com.longding999.longding.R;
+import com.longding999.longding.TeacherInfoActivity;
 import com.longding999.longding.adapter.TeacherAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.bean.TeacherInfo;
@@ -107,7 +110,12 @@ public class TeacherFragment extends BasicFragment{
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                shortToast("点击了第"+(position+1)+"个老师");
+                Intent intent = new Intent(mActivity, TeacherInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("teacherId",mList.get(position).getId());
+                intent.putExtras(bundle);
+                mActivity.startActivity(intent);
+//                shortToast("点击了第"+(position+1)+"个老师");
             }
         });
     }
