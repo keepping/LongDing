@@ -33,7 +33,7 @@ import java.util.List;
 /******************************************************************
  * Author:LCM
  * Date: 2016/3/9 15:18
- * Desc: 老师碎片
+ * Desc: 老师 碎片
  * *****************************************************************
  */
 public class TeacherFragment extends BasicFragment{

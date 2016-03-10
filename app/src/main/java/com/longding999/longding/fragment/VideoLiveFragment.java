@@ -194,7 +194,19 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
     @Override
     public void onPause() {
         mPlayer.leave();
-        mPlayer.release(getActivity());
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        initPlayer();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        mPlayer.leave();
+        mPlayer.release(mActivity);
+        super.onDestroy();
     }
 }

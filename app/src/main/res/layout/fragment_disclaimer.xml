@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/disclaimer_info"
             android:padding="4dp"
-            android:textSize="16sp"/>
+            android:textSize="17sp"/>
     </LinearLayout>
 
 </RelativeLayout>
