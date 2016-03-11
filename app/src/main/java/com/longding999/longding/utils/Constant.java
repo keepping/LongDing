@@ -17,4 +17,8 @@ public class Constant {
     //日刊信息地址
     public static String DIURNAL_INFO = "http://139.196.202.93/Diurnal/api/diurnal";
 
+
+    //建议地址
+    public static String SUGGEST_INFO = "http://139.196.202.93/Suggestions/api/suggest/";
+
 }
