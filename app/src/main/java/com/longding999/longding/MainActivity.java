@@ -1,5 +1,6 @@
 package com.longding999.longding;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -41,7 +42,7 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     @Override
     protected void initViews() {
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
+        lastRadioButton = (RadioButton) mRadioGroup.getChildAt(0);
     }
 
     @Override
@@ -71,9 +72,17 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
             }
         }
         if(checkedId == R.id.rb_mine){
-            shortToast("选中我的,可惜还没有...");
-            lastRadioButton.setChecked(true);
+//            shortToast("选中我的,可惜还没有...");
+//            lastRadioButton.setChecked(true);
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivityForResult(intent,1);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        lastRadioButton.setChecked(true);
     }
 
     /**

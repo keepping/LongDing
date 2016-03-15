@@ -1,6 +1,7 @@
 package com.longding999.longding.fragment;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -111,6 +112,7 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
     @Override
     protected void setListeners() {
         mGSVideoView.setOnClickListener(this);
+
     }
 
     @Override
@@ -138,14 +140,56 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.gsVideoView:
-                Intent intent =new Intent(mActivity, FullScreenActivity.class);
-                mActivity.startActivity(intent);
+               doubleClick();
                 break;
 
             default:
                 break;
         }
     }
+
+
+    /**
+     * 响应双击事件
+     */
+    List<Long> times = new ArrayList<>();
+    public void doubleClick(){
+        times.add(SystemClock.uptimeMillis());
+        if (times.size() == 2) {
+            if (times.get(times.size()-1)-times.get(0) < 500) {
+                times.clear();
+                Intent intent =new Intent(mActivity, FullScreenActivity.class);
+                mActivity.startActivity(intent);
+            } else {
+                times.remove(0);
+            }
+        }
+    }
+
+
+//    long[] mHits = new long[2];
+//    public void doubleClick() {
+//        // 双击事件响应
+//        /**
+//         * arraycopy,拷贝数组
+//         * src 要拷贝的源数组
+//         * srcPos 源数组开始拷贝的下标位置
+//         * dst 目标数组
+//         * dstPos 开始存放的下标位置
+//         * length 要拷贝的长度（元素的个数）
+//         *
+//         */
+//        //实现数组的移位操作，点击一次，左移一位，末尾补上当前开机时间（cpu的时间）
+//        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+//        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+//        //双击事件的时间间隔500ms
+//        if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+//            //双击后具体的操作
+//            //do
+//            Intent intent =new Intent(mActivity, FullScreenActivity.class);
+//            mActivity.startActivity(intent);
+//        }
+//    }
 
     @Override
     public void onJoin(int i) {

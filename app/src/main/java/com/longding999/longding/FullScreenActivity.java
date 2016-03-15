@@ -1,5 +1,8 @@
 package com.longding999.longding;
 
+import android.content.Intent;
+import android.os.SystemClock;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -12,6 +15,9 @@ import com.gensee.view.GSVideoView;
 import com.longding999.longding.basic.BasicActivity;
 import com.longding999.longding.utils.Constant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * *****************************************************************
  * Author:LCM
@@ -19,7 +25,7 @@ import com.longding999.longding.utils.Constant;
  * Desc: 全屏播放视频
  * *****************************************************************
  */
-public class FullScreenActivity extends BasicActivity implements OnPlayListener{
+public class FullScreenActivity extends BasicActivity implements OnPlayListener,View.OnClickListener{
     private GSVideoView mGSVideoView;
 
     private InitParam initParam;
@@ -48,7 +54,7 @@ public class FullScreenActivity extends BasicActivity implements OnPlayListener{
 
     @Override
     protected void setListeners() {
-
+        mGSVideoView.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +75,35 @@ public class FullScreenActivity extends BasicActivity implements OnPlayListener{
         mPlayer.join(FullScreenActivity.this, initParam, this);
         mPlayer.setGSVideoView(mGSVideoView);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.gsVideoView:
+                doubleClick();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 响应双击事件
+     */
+    List<Long> times = new ArrayList<>();
+    public void doubleClick(){
+        times.add(SystemClock.uptimeMillis());
+        if (times.size() == 2) {
+            if (times.get(times.size()-1)-times.get(0) < 500) {
+                times.clear();
+                onBackPressed();
+            } else {
+                times.remove(0);
+            }
+        }
+    }
+
 
     @Override
     public void onJoin(int i) {
@@ -154,4 +189,6 @@ public class FullScreenActivity extends BasicActivity implements OnPlayListener{
     public void onPublicMsg(long l, String s) {
 
     }
+
+
 }
