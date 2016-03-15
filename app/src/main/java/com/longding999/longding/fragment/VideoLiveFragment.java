@@ -1,5 +1,6 @@
 package com.longding999.longding.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import com.gensee.entity.UserInfo;
 import com.gensee.player.OnPlayListener;
 import com.gensee.player.Player;
 import com.gensee.view.GSVideoView;
+import com.longding999.longding.FullScreenActivity;
 import com.longding999.longding.R;
 import com.longding999.longding.adapter.MyPagerAdapter;
 import com.longding999.longding.basic.BasicFragment;
@@ -28,7 +30,7 @@ import java.util.List;
  * Desc: 视频直播碎片
  * *****************************************************************
  */
-public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
+public class VideoLiveFragment extends BasicFragment implements OnPlayListener,View.OnClickListener{
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -41,6 +43,7 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
     private Player mPlayer;
 
     private  InitParam initParam;
+    private boolean isHidden;
     @Override
     protected void initBundle() {
 
@@ -82,6 +85,9 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
         initPlayer();
     }
 
+    /**
+     * 初始化播放器
+     */
     private void initPlayer() {
         initParam.setDomain(Constant.VIDEO_DOMAIN);
         initParam.setNumber(Constant.VIDEO_NUMBER);
@@ -98,12 +104,47 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
         }else{
             initPlayer();
         }
+        isHidden = hidden;
         super.onHiddenChanged(hidden);
     }
 
     @Override
     protected void setListeners() {
+        mGSVideoView.setOnClickListener(this);
+    }
 
+    @Override
+    public void onPause() {
+        mPlayer.leave();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        if(!isHidden) {
+            initPlayer();
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        mPlayer.leave();
+        mPlayer.release(mActivity);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.gsVideoView:
+                Intent intent =new Intent(mActivity, FullScreenActivity.class);
+                mActivity.startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
@@ -191,22 +232,5 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener{
 
     }
 
-    @Override
-    public void onPause() {
-        mPlayer.leave();
-        super.onPause();
-    }
 
-    @Override
-    public void onResume() {
-        initPlayer();
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        mPlayer.leave();
-        mPlayer.release(mActivity);
-        super.onDestroy();
-    }
 }

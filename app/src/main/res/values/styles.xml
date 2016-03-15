@@ -14,9 +14,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textColor">@drawable/slt_rb_text</item>
+        <item name="android:textColor">@drawable/slt_rb_color_text</item>
         <item name="android:textSize">10sp</item>
         <item name="android:drawablePadding">6dp</item>
         <item name="android:paddingTop">4dp</item>
+    </style>
+
+    <style name="MyTabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
+        <item name="tabIndicatorColor">@color/rb_red</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
+        <item name="tabSelectedTextColor">@color/rb_red</item>
     </style>
 </resources>

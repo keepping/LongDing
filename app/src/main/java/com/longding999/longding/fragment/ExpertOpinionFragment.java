@@ -1,5 +1,6 @@
 package com.longding999.longding.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.longding999.longding.HistorySugActivity;
 import com.longding999.longding.R;
 import com.longding999.longding.adapter.SuggestAdapter;
 import com.longding999.longding.basic.BasicFragment;
@@ -129,7 +131,7 @@ public class ExpertOpinionFragment extends BasicFragment {
             }
         });
 //        mQueue.add(stringRequest);
-         setmAdapter();
+        setmAdapter();
 
     }
 
@@ -141,10 +143,19 @@ public class ExpertOpinionFragment extends BasicFragment {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, HistorySugActivity.class);
+                mActivity.startActivity(intent);
+            }
+        });
     }
 
 
+    /**
+     * 设置适配器
+     */
     public void setmAdapter(){
         long currentTimeMillis = System.currentTimeMillis();
         String currentTime = parseLongToString(currentTimeMillis);

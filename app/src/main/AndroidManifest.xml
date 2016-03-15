@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".TeacherInfoActivity"></activity>
+        <activity android:name=".HistorySugActivity"></activity>
+        <activity android:name=".FullScreenActivity"
+            android:screenOrientation="landscape"
+            ></activity>
     </application>
 
 </manifest>
