@@ -17,6 +17,8 @@ public class MyApplication extends Application {
 
     public static Context mContext;
 
+
+
     @Override
     public void onCreate() {
         x.Ext.init(this);

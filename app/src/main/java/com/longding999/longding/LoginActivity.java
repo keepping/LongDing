@@ -1,6 +1,7 @@
 package com.longding999.longding;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -9,6 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.bean.UserInfo;
+import com.longding999.longding.utils.DbHelper;
+import com.longding999.longding.utils.Logger;
+import com.longding999.longding.utils.SharedHelper;
+
+import org.xutils.DbManager;
+import org.xutils.db.Selector;
+import org.xutils.ex.DbException;
+
+import java.util.List;
 
 /**
  * *****************************************************************
@@ -24,6 +35,8 @@ public class LoginActivity extends BasicActivity implements View.OnClickListener
     private EditText edtPhoneNumber,edtPassWord;
     private Button btnLogin;
     private TextView tvForgetPwd;
+
+    private DbManager dbManager;
 
     @Override
     protected void bindView() {
@@ -57,10 +70,12 @@ public class LoginActivity extends BasicActivity implements View.OnClickListener
     protected void setListeners() {
         imageLeft.setOnClickListener(this);
         tvRight.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
+        dbManager = DbHelper.getInstance().getDbManger();
 
     }
 
@@ -72,12 +87,49 @@ public class LoginActivity extends BasicActivity implements View.OnClickListener
                 break;
 
             case R.id.tv_right:
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent1);
+                break;
+
+            case R.id.btn_login:
+                login();
                 break;
 
             default:
                 break;
+        }
+    }
+
+
+    private void login() {
+        String phoneNumber = edtPhoneNumber.getText().toString();
+        String passWord = edtPassWord.getText().toString();
+        if(phoneNumber.isEmpty()||passWord.isEmpty()){
+            shortToast("手机或密码不能为空!");
+        }else{
+            try {
+                List<UserInfo> userPhone = dbManager.selector(UserInfo.class).where("userPhone", "=", phoneNumber).findAll();
+                if(userPhone==null){
+                    shortToast("账号错误!");
+                }else{
+                    UserInfo userInfo = userPhone.get(0);
+                    if(passWord.equals(userInfo.getUserPwd())){
+                        shortToast("登录成功!");
+
+                        SharedHelper.saveBoolean(SharedHelper.LOGIN,true);
+                        SharedHelper.saveString(SharedHelper.ID,userInfo.get_id()+"");
+
+                        Intent intent = new Intent();
+                        intent.putExtra("_id",userInfo.get_id());
+                        setResult(1001,intent);
+                        finish();
+                    }else{
+                        shortToast("密码错误!");
+                    }
+                }
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

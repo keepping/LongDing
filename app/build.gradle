@@ -34,5 +34,6 @@ dependencies {
     compile files('libs/volly.jar')
     compile project(':xutils')
     compile files('libs/fastjson-1.2.8.jar')
-
+    compile project(':gifview')
+    compile project(':roundedimageview')
 }

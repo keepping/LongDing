@@ -53,6 +53,7 @@
             android:layout_weight="5"
             android:padding="6dp"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:background="@drawable/shape_corner_white"/>
         <TextView
             android:layout_width="0dp"

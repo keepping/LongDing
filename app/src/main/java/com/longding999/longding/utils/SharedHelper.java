@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 public class SharedHelper {
     private static SharedPreferences sharedPreferences;
     private static String SHARED_NAME = "LONGDING999";
+    public static String   LOGIN = "LOGIN";
+    public static String ID = "id";
 
 
     /**
@@ -23,7 +25,7 @@ public class SharedHelper {
         if(sharedPreferences == null){
             sharedPreferences = MyApplication.mContext.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         }
-        sharedPreferences.edit().putBoolean(key,value);
+        sharedPreferences.edit().putBoolean(key,value).commit();
     }
 
     /**
@@ -37,6 +39,33 @@ public class SharedHelper {
             sharedPreferences = MyApplication.mContext.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getBoolean(key,defValue);
+    }
+
+
+
+    /**
+     * 保存String值
+     * @param key
+     * @param value
+     */
+    public static void saveString(String key,String value){
+        if(sharedPreferences == null){
+            sharedPreferences = MyApplication.mContext.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
+        }
+        sharedPreferences.edit().putString(key,value).commit();
+    }
+
+    /**
+     * 获取String值
+     * @param key
+     * @param defValue
+     * @return
+     */
+    public static String getString(String key,String defValue){
+        if(sharedPreferences == null){
+            sharedPreferences = MyApplication.mContext.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
+        }
+        return sharedPreferences.getString(key,defValue);
     }
 
 

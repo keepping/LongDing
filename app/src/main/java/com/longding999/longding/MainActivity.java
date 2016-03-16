@@ -1,6 +1,7 @@
 package com.longding999.longding;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +12,10 @@ import android.widget.RadioGroup;
 import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.ExpertOpinionFragment;
 import com.longding999.longding.fragment.TextLiveFragment;
+import com.longding999.longding.fragment.UserInfoFragment;
 import com.longding999.longding.fragment.VideoLiveFragment;
+import com.longding999.longding.utils.Logger;
+import com.longding999.longding.utils.SharedHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +23,15 @@ import java.util.List;
 /**
  * 主布局
  */
-public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener{
+public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener, UserInfoFragment.UserInfoCallBack {
     private RadioGroup mRadioGroup;
     private int currentTabIndex = 0;
     private List<Fragment> fragmentList;
     private FragmentManager fm;
     private FragmentTransaction ft;
     private RadioButton lastRadioButton;
+
+    private UserInfoFragment userInfoFragment;
 
 
     @Override
@@ -58,40 +64,53 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         fragmentList.add(new VideoLiveFragment());
         fragmentList.add(new TextLiveFragment());
         fragmentList.add(new ExpertOpinionFragment());
-        fm.beginTransaction().add(R.id.frameLayout,fragmentList.get(currentTabIndex)).commit();
+        userInfoFragment = new UserInfoFragment();
+        fragmentList.add(userInfoFragment);
+        fm.beginTransaction().add(R.id.frameLayout, fragmentList.get(currentTabIndex)).commit();
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        for (int i = 0; i < group.getChildCount()-1;i++){
+        for (int i = 0; i < group.getChildCount() - 1; i++) {
             RadioButton rb = (RadioButton) group.getChildAt(i);
-            if(rb.getId() == checkedId){
+            if (rb.getId() == checkedId) {
 //                shortToast("选中第"+i);
                 lastRadioButton = rb;
                 showFragment(i);
             }
         }
-        if(checkedId == R.id.rb_mine){
-//            shortToast("选中我的,可惜还没有...");
+        if (checkedId == R.id.rb_mine) {
 //            lastRadioButton.setChecked(true);
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-            startActivityForResult(intent,1);
+            if (!SharedHelper.getBoolean(SharedHelper.LOGIN, false)) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, 1000);
+            }else{
+                showFragment(3);
+            }
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1000 && resultCode == 1001) {
+            showFragment(3);
+            int id = data.getIntExtra("_id", -1);
+            userInfoFragment.refreshFragment(id);
+        } else {
+            lastRadioButton.setChecked(true);
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
-        lastRadioButton.setChecked(true);
     }
 
     /**
      * 根据选中radiobutton下表显示fragment
+     *
      * @param targetTabIndex
      */
-    public void showFragment(int targetTabIndex){
+    public void showFragment(int targetTabIndex) {
         ft = fm.beginTransaction();
-        if(targetTabIndex != currentTabIndex) {
+        if (targetTabIndex != currentTabIndex) {
             Fragment currentFragment = fragmentList.get(currentTabIndex);
             Fragment targetFragment = fragmentList.get(targetTabIndex);
 
@@ -100,8 +119,15 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
             } else {
                 ft.show(targetFragment).hide(currentFragment).commit();
             }
+
             currentTabIndex = targetTabIndex;
+
         }
 
+    }
+
+    @Override
+    public void onLogOut() {
+        lastRadioButton.setChecked(true);
     }
 }

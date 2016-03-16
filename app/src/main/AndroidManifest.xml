@@ -21,15 +21,28 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
+        </activity>
+
+        <activity android:name=".TeacherInfoActivity">
+        </activity>
+
+        <activity android:name=".HistorySugActivity">
+        </activity>
+
+        <activity android:name=".FullScreenActivity"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".LoginActivity">
+        </activity>
+
+        <activity android:name=".RegisterActivity">
+        </activity>
+
+        <activity android:name=".UserSetActivity">
 
         </activity>
-        <activity android:name=".TeacherInfoActivity"></activity>
-        <activity android:name=".HistorySugActivity"></activity>
-        <activity android:name=".FullScreenActivity"
-            android:screenOrientation="landscape"
-            ></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+
     </application>
 
 </manifest>

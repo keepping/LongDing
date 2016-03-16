@@ -9,6 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.bean.UserInfo;
+import com.longding999.longding.utils.DbHelper;
+
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
+
+import java.util.Date;
 
 /**
  * *****************************************************************
@@ -24,6 +31,8 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
     private EditText edtPhoneNumber,edtVerification,edtPassWord,edtPwdAgain;
     private CheckBox cbFollowRule;
     private Button btnSubmit,btnVerification;
+
+    private DbManager dbManager;
 
     @Override
     protected void bindView() {
@@ -58,12 +67,13 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
     @Override
     protected void setListeners() {
         imageLeft.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
 
     }
 
     @Override
     protected void initData() {
-
+        dbManager = DbHelper.getInstance().getDbManger();
     }
 
     @Override
@@ -72,6 +82,22 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
             case R.id.image_left:
                 onBackPressed();
                 break;
+
+            case R.id.btn_submit:
+                submit();
+                break;
+
+            default:
+                break;
         }
+    }
+
+    private void submit() {
+        try {
+            dbManager.save(new UserInfo("file///android_asset/user.jpg","PC9527","123",new Date().getTime(),0 ,"123","黄山","111111",1));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        onBackPressed();
     }
 }
