@@ -71,21 +71,16 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        for (int i = 0; i < group.getChildCount() - 1; i++) {
+        for (int i = 0; i < group.getChildCount(); i++) {
             RadioButton rb = (RadioButton) group.getChildAt(i);
             if (rb.getId() == checkedId) {
-//                shortToast("选中第"+i);
-                lastRadioButton = rb;
                 showFragment(i);
             }
         }
         if (checkedId == R.id.rb_mine) {
-//            lastRadioButton.setChecked(true);
             if (!SharedHelper.getBoolean(SharedHelper.LOGIN, false)) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, 1000);
-            }else{
-                showFragment(3);
             }
         }
     }
@@ -93,7 +88,6 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1000 && resultCode == 1001) {
-            showFragment(3);
             int id = data.getIntExtra("_id", -1);
             userInfoFragment.refreshFragment(id);
         } else {
@@ -115,9 +109,9 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
             Fragment targetFragment = fragmentList.get(targetTabIndex);
 
             if (!targetFragment.isAdded()) {
-                ft.add(R.id.frameLayout, targetFragment).hide(currentFragment).commit();
+                ft.add(R.id.frameLayout, targetFragment).hide(currentFragment).commitAllowingStateLoss();
             } else {
-                ft.show(targetFragment).hide(currentFragment).commit();
+                ft.show(targetFragment).hide(currentFragment).commitAllowingStateLoss();
             }
 
             currentTabIndex = targetTabIndex;
@@ -126,8 +120,16 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
 
     }
 
+    /**
+     *退出登录回调接口
+     */
     @Override
     public void onLogOut() {
         lastRadioButton.setChecked(true);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

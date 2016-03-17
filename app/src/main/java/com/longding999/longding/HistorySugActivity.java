@@ -119,7 +119,7 @@ public class HistorySugActivity extends BasicActivity implements View.OnClickLis
     @Override
     protected void initData() {
         dbManager = DbHelper.getInstance().getDbManger();
-        setmAdapter(2016,3,11);
+        setmAdapter(2016,1,27);
         try {
             List<SuggestInfo> suggestInfoList = dbManager.findAll(SuggestInfo.class);
             long minTime = suggestInfoList.get(0).getCreateTime();

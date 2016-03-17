@@ -19,6 +19,6 @@ public class Constant {
 
 
     //建议地址
-    public static String SUGGEST_INFO = "http://139.196.202.93/Suggestions/api/suggest/";
+    public static String SUGGEST_INFO = "http://192.168.0.84:8006/Suggestions/api/suggest/";
 
 }

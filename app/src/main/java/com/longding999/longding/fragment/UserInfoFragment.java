@@ -20,6 +20,7 @@ import com.longding999.longding.R;
 import com.longding999.longding.UserSetActivity;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.bean.UserInfo;
+import com.longding999.longding.utils.DateParseUtils;
 import com.longding999.longding.utils.DbHelper;
 import com.longding999.longding.utils.FastBlur;
 import com.longding999.longding.utils.Logger;
@@ -115,6 +116,7 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
      */
     private void refreshViewById(int _id){
         try {
+            this._id = _id;
             List<UserInfo> id = dbManager.selector(UserInfo.class).where("_id", "=", _id).findAll();
             UserInfo userInfo = id.get(0);
 
@@ -124,7 +126,7 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
             tvuserRank.setText("VIP"+userInfo.getUserRank());
             tvUserQQ.setText(userInfo.getUserQQ());
             tvUserPhone.setText(userInfo.getUserPhone());
-            tvUserBirthDay.setText(parseLongToString(userInfo.getUserBirthDay()));
+            tvUserBirthDay.setText(DateParseUtils.parseLongToString(userInfo.getUserBirthDay()));
             if(userInfo.getUserGander()==0){
                 tvUserGander.setText("男");
             }else{
@@ -145,18 +147,6 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
             e.printStackTrace();
         }
 
-    }
-
-
-    /**
-     * 时间转字符串
-     * @param time
-     * @return
-     */
-    public String parseLongToString(long time){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(time);
-        return sdf.format(date);
     }
 
 
@@ -209,6 +199,7 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
         switch (v.getId()){
             case R.id.iv_userset:
                 Intent intent = new Intent(mActivity, UserSetActivity.class);
+                intent.putExtra("_id",_id);
                 mActivity.startActivity(intent);
                 break;
 

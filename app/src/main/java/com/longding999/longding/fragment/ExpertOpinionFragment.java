@@ -23,6 +23,7 @@ import com.longding999.longding.adapter.SuggestAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.bean.SuggestInfo;
 import com.longding999.longding.utils.Constant;
+import com.longding999.longding.utils.DateParseUtils;
 import com.longding999.longding.utils.DbHelper;
 import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.VolleyUtils;
@@ -106,8 +107,8 @@ public class ExpertOpinionFragment extends BasicFragment {
                             String stopprofit = jsonObject.getString("stopprofit");
                             String stoploss = jsonObject.getString("stoploss");
                             String ps = jsonObject.getString("ps");
-                            long date = parseStringToLong(createTime);
-                            list.add(new SuggestInfo(id,date,parseLongToString(date),createUserID,createUserName,comefrom,category,goods,openprice,stopprofit,stoploss,ps));
+                            long date = DateParseUtils.parseStringToLong(createTime);
+                            list.add(new SuggestInfo(id,date,DateParseUtils.parseLongToString(date),createUserID,createUserName,comefrom,category,goods,openprice,stopprofit,stoploss,ps));
                         }
                         return list;
                     }
@@ -116,7 +117,7 @@ public class ExpertOpinionFragment extends BasicFragment {
                     protected void onPostExecute(List<SuggestInfo> suggestInfos) {
                         try {
                             dbManager.save(suggestInfos);
-
+                            Logger.e("存入数据大小："+suggestInfos.size());
                         } catch (DbException e) {
                             e.printStackTrace();
                         }
@@ -158,49 +159,23 @@ public class ExpertOpinionFragment extends BasicFragment {
      */
     public void setmAdapter(){
         long currentTimeMillis = System.currentTimeMillis();
-        String currentTime = parseLongToString(currentTimeMillis);
+        String currentTime = DateParseUtils.parseLongToString(currentTimeMillis);
         Logger.e("currentTime"+currentTime);
 
         try {
-            List<SuggestInfo> suggestInfos = dbManager.selector(SuggestInfo.class).where("createDate", "=", "2016-03-11").findAll();
-            Logger.e(suggestInfos.size()+"");
-            mAdapter = new SuggestAdapter(suggestInfos,mActivity);
-            mListView.setAdapter(mAdapter);
+            List<SuggestInfo> suggestInfos = dbManager.selector(SuggestInfo.class).where("createDate", "=", "2016-01-27").findAll();
+            if(suggestInfos == null){
+                shortToast("没有数据！");
+            }else {
+                Logger.e(suggestInfos.size() + "");
+                mAdapter = new SuggestAdapter(suggestInfos, mActivity);
+                mListView.setAdapter(mAdapter);
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }
 
     }
 
-    /**
-     * 将字符串转换为时间
-     * @param createTime
-     * @return
-     */
-    public long parseStringToLong(String createTime){
-        String s = createTime.replace("T", "|");
-        if(!s.contains(".")){
-            s=s+".00";
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd|HH:mm:ss.SS");
-        Date date = new Date();
-        try {
-            date = sdf.parse(s);
-            return date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 
-    /**
-     * 时间转字符串
-     * @param time
-     * @return
-     */
-    public String parseLongToString(long time){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(time);
-        return sdf.format(date);
-    }
 }
