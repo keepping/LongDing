@@ -8,7 +8,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -133,17 +135,12 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
                 tvUserGander.setText("女");
             }
             tvUserLocation.setText(userInfo.getUserLocation());
-            AssetManager assetManager = mActivity.getAssets();
-            InputStream is = assetManager.open("user.jpg");
-            //以下注释掉的代码不靠谱.若采用,会有异常
-            //InputStream is = assetManager.open("file:///android_asset/Fresh_01.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            ivUserIcon.setImageBitmap(bitmap);
+
+           Logger.e("地址："+userInfo.getUserIcon());
+            ivUserIcon.setImageBitmap(BitmapFactory.decodeFile(userInfo.getUserIcon()));
 
 
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
 

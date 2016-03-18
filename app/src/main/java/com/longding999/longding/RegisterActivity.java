@@ -93,8 +93,9 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
     }
 
     private void submit() {
+        String path = getApplicationContext().getCacheDir().getAbsolutePath() + "/icon/user.jpg";
         try {
-            dbManager.save(new UserInfo("file///android_asset/user.jpg","PC9527","123",new Date().getTime(),0 ,"123","黄山","111111",1));
+            dbManager.save(new UserInfo(path,"PC9527","666",new Date().getTime(),0 ,"666","黄山","111111",1));
         } catch (DbException e) {
             e.printStackTrace();
         }

@@ -1,31 +1,50 @@
 package com.longding999.longding;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.basic.BasicCountryActivity;
 import com.longding999.longding.bean.UserInfo;
 import com.longding999.longding.utils.DateParseUtils;
 import com.longding999.longding.utils.DbHelper;
 import com.longding999.longding.utils.Logger;
-import com.longding999.longding.utils.SharedHelper;
+import com.longding999.longding.utils.MyApplication;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 /**
  * *****************************************************************
@@ -34,10 +53,11 @@ import java.util.List;
  * Desc: 用户设置
  * *****************************************************************
  */
-public class UserSetActivity extends BasicActivity implements View.OnClickListener{
+public class UserSetActivity extends BasicCountryActivity implements View.OnClickListener,OnWheelChangedListener{
 
     private TextView tvTitle,tvLeft,tvRight;
     private ImageView imageLeft;
+    private LinearLayout linearLayout;
 
     private int _id;
 
@@ -46,6 +66,20 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
     private LinearLayout layoutUserIcon,layoutUserName,layoutUserRank,layoutUserPhone,layoutUserQQ,layoutUserLocation,layoutUserBirthday,layoutUserGander,layoutUserPwd;
 
     private DbManager dbManager;
+
+
+    private int CHOOSE_PICTURE = 1001;
+
+    private String  userIcon,userName,userQQ;
+    private int userGander;
+    private long userBirthDay;
+
+    private PopupWindow mPopupWindow;
+    private WheelView mWheelProvince,mWheelCity,mWheelDistrict;
+    private TextView tvCancel,tvEnsure;
+
+
+
 
     @Override
     protected void bindView() {
@@ -69,6 +103,7 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
         tvRight.setText("保存");
         tvLeft.setVisibility(View.GONE);
 
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         ivUserIcon = (RoundedImageView) findViewById(R.id.iv_usericon);
         tvUserBirthday = (TextView) findViewById(R.id.tv_userbirthday);
         tvUserGander = (TextView) findViewById(R.id.tv_usergander);
@@ -122,28 +157,26 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
             List<UserInfo> id = dbManager.selector(UserInfo.class).where("_id", "=", _id).findAll();
             UserInfo userInfo = id.get(0);
 
-            tvUserName.setText(userInfo.getUserName());
+            userIcon = userInfo.getUserIcon();
+            userName = userInfo.getUserName();
+            userGander = userInfo.getUserGander();
+            userQQ = userInfo.getUserQQ();
+
+            tvUserName.setText(userName);
             tvUserRank.setText("VIP"+userInfo.getUserRank());
-            tvUserQQ.setText(userInfo.getUserQQ());
+            tvUserQQ.setText(userQQ);
             tvUserPhone.setText(userInfo.getUserPhone());
             tvUserBirthday.setText(DateParseUtils.parseLongToString(userInfo.getUserBirthDay()));
-            if(userInfo.getUserGander()==0){
+            if(userGander==0){
                 tvUserGander.setText("男");
             }else{
                 tvUserGander.setText("女");
             }
-            tvUserLocation.setText(userInfo.getUserLocation());
-            AssetManager assetManager = getAssets();
-            InputStream is = assetManager.open("user.jpg");
-            //以下注释掉的代码不靠谱.若采用,会有异常
-            //InputStream is = assetManager.open("file:///android_asset/Fresh_01.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            ivUserIcon.setImageBitmap(bitmap);
 
+            tvUserLocation.setText(userInfo.getUserLocation());
+            ivUserIcon.setImageBitmap(BitmapFactory.decodeFile(userIcon));
 
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -201,6 +234,19 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
                 shortToast("点击了用户等级！");
                 break;
 
+            case R.id.tv_cancel:
+                if(mPopupWindow.isShowing()){
+                    mPopupWindow.dismiss();
+                }
+                break;
+
+            case R.id.tv_ensure:
+                shortToast(mCurrentProviceName+mCurrentCityName+mCurrentDistrictName);
+                if(mPopupWindow.isShowing()){
+                    mPopupWindow.dismiss();
+                }
+                break;
+
             default:
                 break;
         }
@@ -210,6 +256,22 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
      * 修改用户性别
      */
     private void changeGrander() {
+        final String items[]={"男","女"};
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
+        builder.setTitle("提示"); //设置标题
+        builder.setSingleChoiceItems(items,userGander,new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if ("男".endsWith(items[which])){
+                    userGander = 0;
+                }else{
+                    userGander = 1;
+                }
+                tvUserGander.setText(items[which]);
+            }
+        });
+        builder.create().show();
 
     }
 
@@ -217,7 +279,18 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
      * 修改用户qq
      */
     private void changeUserQQ() {
-
+        View view = View.inflate(this, R.layout.dialog_edittext, null);
+        final EditText dialogEdit = (EditText) view.findViewById(R.id.dialogEdit);
+        new AlertDialog.Builder(this).setTitle("请输入QQ：")
+                .setView(view)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userQQ = dialogEdit.getText().toString();
+                        tvUserQQ.setText(userQQ);
+                    }
+                }).show();
     }
 
     /**
@@ -231,21 +304,43 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
      * 修改用户昵称
      */
     private void changeUserName() {
-
+        View view = View.inflate(this, R.layout.dialog_edittext, null);
+        final EditText dialogEdit = (EditText) view.findViewById(R.id.dialogEdit);
+        new AlertDialog.Builder(this).setTitle("请输入昵称：")
+                .setView(view)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userName = dialogEdit.getText().toString();
+                        tvUserName.setText(userName);
+                    }
+                }).show();
     }
 
     /**
      * 修改用户常驻地
      */
     private void changeLocation() {
-
+        initPopupwindows();
+        showPop(linearLayout, Gravity.BOTTOM,0,0);
+        initProvinceDatas();
+        mWheelProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
+        // 设置可见条目数量
+        mWheelProvince.setVisibleItems(7);
+        mWheelCity.setVisibleItems(7);
+        mWheelDistrict.setVisibleItems(7);
+        updateCities();
+        updateAreas();
     }
 
     /**
      * 修改用户头像
      */
     private void changeIcon() {
-
+        Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        openAlbumIntent.setType("image/*");
+        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
     }
 
     /**
@@ -253,5 +348,293 @@ public class UserSetActivity extends BasicActivity implements View.OnClickListen
      */
     private void changeBirthday() {
 
+        View view = View.inflate(this, R.layout.dialog_datepicker, null);
+        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datepicker);
+        datePicker.setMinDate(DateParseUtils.parseStringToLong("1900-01-01"));
+        datePicker.setMaxDate(new Date().getTime());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("出生日期：");
+        builder.setView(view);
+        builder.setNegativeButton("取消",null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth()+1;
+                int dayOfMonth = datePicker.getDayOfMonth();
+                getUserBirthDay(year,month,dayOfMonth);
+            }
+        });
+        builder.create().show();
+
     }
+
+    private void getUserBirthDay(int year, int month, int dayOfMonth) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(year+"-");
+        if(month<10){
+            builder.append("0"+month+"-");
+        }else{
+            builder.append(month+"-");
+        }
+
+        if(dayOfMonth < 10){
+            builder.append("0"+dayOfMonth);
+        }else{
+            builder.append(dayOfMonth);
+        }
+        tvUserBirthday.setText(builder.toString());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = sdf.parse(builder.toString());
+            userBirthDay = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 初始化地区选择器的popupwindows
+     */
+    private void initPopupwindows(){
+        View popupView = View.inflate(this, R.layout.popwindows_filter_country, null);
+        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        mWheelProvince = (WheelView) popupView.findViewById(R.id.wheelProvince);
+        mWheelCity = (WheelView) popupView.findViewById(R.id.wheelCity);
+        mWheelDistrict = (WheelView) popupView.findViewById(R.id.wheelDistrict);
+        tvCancel = (TextView) popupView.findViewById(R.id.tv_cancel);
+        tvEnsure = (TextView) popupView.findViewById(R.id.tv_ensure);
+
+        mWheelDistrict.addChangingListener(this);
+        mWheelCity.addChangingListener(this);
+        mWheelProvince.addChangingListener(this);
+        tvEnsure.setOnClickListener(this);
+        tvCancel.setOnClickListener(this);
+    }
+
+
+    /**
+     * 显示popWindow
+     *
+     * */
+    public void showPop(View parent,int postion, int x, int y) {
+        //设置popwindow显示位置
+        mPopupWindow.showAtLocation(parent, postion, x, y);
+        //获取popwindow焦点
+        mPopupWindow.setFocusable(true);
+        //设置popwindow如果点击外面区域，便关闭。
+        mPopupWindow.setOutsideTouchable(true);
+//        mPopupWindow.update();
+//        if (mPopupWindow.isShowing()) {
+//
+//        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_OK){
+            return;
+        }
+
+        switch (requestCode){
+            case 1001:
+                Uri uri = data.getData();
+                if(MyApplication.isKitKat) {
+                     userIcon= getPath_above19(getApplication(), uri);
+                }else{
+                    userIcon = getPath_below19(getApplication(), uri);
+                }
+                Logger.e(userIcon);
+                ivUserIcon.setImageBitmap(BitmapFactory.decodeFile(userIcon));
+                break;
+
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    /**
+     * 低于API19时获取相册返回图片地址方法
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static String getPath_below19(final Context context,final Uri uri){
+        //这里开始的第二部分，获取图片的路径：低版本的是没问题的，但是sdk>19会获取不到
+        String[] proj = {MediaStore.Images.Media.DATA};
+        //好像是android多媒体数据库的封装接口，具体的看Android文档
+        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+        //获得用户选择的图片的索引值
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        //将光标移至开头 ，这个很重要，不小心很容易引起越界
+        cursor.moveToFirst();
+        //最后根据索引值获取图片路径   结果类似：/mnt/sdcard/DCIM/Camera/IMG_20151124_013332.jpg
+        String path = cursor.getString(column_index);
+        return path;
+    }
+
+
+    /**
+     * 高于API19时获取相册返回图片地址方法
+     * @param context
+     * @param uri
+     * @return
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public  static String getPath_above19(final Context context, final Uri uri) {
+        // DocumentProvider
+        if ( DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{
+                        split[1]
+                };
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            // Return the remote address
+            if (isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
+
+
+
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {column};
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    @Override
+    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+// TODO Auto-generated method stub
+        if (wheel == mWheelProvince) {
+            updateCities();
+        } else if (wheel == mWheelCity) {
+            updateAreas();
+        } else if (wheel == mWheelDistrict) {
+            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
+            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+        }
+    }
+
+    /**
+     * 根据当前的市，更新区WheelView的信息
+     */
+    private void updateAreas() {
+        int pCurrent = mWheelCity.getCurrentItem();
+        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
+        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
+
+        if (areas == null) {
+            areas = new String[] { "" };
+        }
+        mWheelDistrict.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
+        mWheelDistrict.setCurrentItem(0);
+        mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
+    }
+
+    /**
+     * 根据当前的省，更新市WheelView的信息
+     */
+    private void updateCities() {
+        int pCurrent = mWheelProvince.getCurrentItem();
+        mCurrentProviceName = mProvinceDatas[pCurrent];
+        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+        if (cities == null) {
+            cities = new String[] { "" };
+        }
+        mWheelCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
+        mWheelCity.setCurrentItem(0);
+        updateAreas();
+    }
+
 }
