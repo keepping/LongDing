@@ -70,13 +70,11 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
 
     private int CHOOSE_PICTURE = 1001;
 
-    private String  userIcon,userName,userQQ;
-    private int userGander;
+    private String  userIcon,userName,userQQ,userLocation,userPwd,userPhone;
+    private int userGander,userRank;
     private long userBirthDay;
 
-    private PopupWindow mPopupWindow;
     private WheelView mWheelProvince,mWheelCity,mWheelDistrict;
-    private TextView tvCancel,tvEnsure;
 
 
 
@@ -127,7 +125,7 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
     @Override
     protected void setListeners() {
         imageLeft.setOnClickListener(this);
-        tvLeft.setOnClickListener(this);
+        tvRight.setOnClickListener(this);
 
         layoutUserRank.setOnClickListener(this);
         layoutUserPwd.setOnClickListener(this);
@@ -142,10 +140,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
 
     @Override
     protected void initData() {
-
         dbManager = DbHelper.getInstance().getDbManger();
         refreshViewById(_id);
-
     }
 
     /**
@@ -161,19 +157,23 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
             userName = userInfo.getUserName();
             userGander = userInfo.getUserGander();
             userQQ = userInfo.getUserQQ();
+            userLocation = userInfo.getUserLocation();
+            userBirthDay = userInfo.getUserBirthDay();
+            userRank = userInfo.getUserRank();
+            userPwd = userInfo.getUserPwd();
+            userPhone = userInfo.getUserPhone();
 
             tvUserName.setText(userName);
-            tvUserRank.setText("VIP"+userInfo.getUserRank());
+            tvUserRank.setText("VIP"+ userRank);
             tvUserQQ.setText(userQQ);
             tvUserPhone.setText(userInfo.getUserPhone());
-            tvUserBirthday.setText(DateParseUtils.parseLongToString(userInfo.getUserBirthDay()));
+            tvUserBirthday.setText(DateParseUtils.parseLongToString(userBirthDay));
             if(userGander==0){
                 tvUserGander.setText("男");
             }else{
                 tvUserGander.setText("女");
             }
-
-            tvUserLocation.setText(userInfo.getUserLocation());
+            tvUserLocation.setText(userLocation);
             ivUserIcon.setImageBitmap(BitmapFactory.decodeFile(userIcon));
 
         } catch (DbException e) {
@@ -195,7 +195,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
                 onBackPressed();
                 break;
 
-            case R.id.tv_left:
+            case R.id.tv_right:
+                saveUserInfo();
                 break;
 
             case R.id.layout_userbirthday:
@@ -234,22 +235,36 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
                 shortToast("点击了用户等级！");
                 break;
 
-            case R.id.tv_cancel:
-                if(mPopupWindow.isShowing()){
-                    mPopupWindow.dismiss();
-                }
-                break;
-
-            case R.id.tv_ensure:
-                shortToast(mCurrentProviceName+mCurrentCityName+mCurrentDistrictName);
-                if(mPopupWindow.isShowing()){
-                    mPopupWindow.dismiss();
-                }
-                break;
-
             default:
                 break;
         }
+    }
+
+    /**
+     * 保存用户修改信息
+     */
+    private void saveUserInfo() {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("保存用户信息？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onBackPressed();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            dbManager.saveOrUpdate(new UserInfo(_id,userIcon,userName,userPwd,userBirthDay,userGander,userPhone,userLocation,userQQ,userRank));
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
+                        setResult(2001);
+                        finish();
+                    }
+                }).show();
     }
 
     /**
@@ -322,14 +337,33 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
      * 修改用户常驻地
      */
     private void changeLocation() {
-        initPopupwindows();
-        showPop(linearLayout, Gravity.BOTTOM,0,0);
+        View view = View.inflate(this, R.layout.dialog_country, null);
+        mWheelProvince = (WheelView) view.findViewById(R.id.wheelProvince);
+        mWheelCity = (WheelView) view.findViewById(R.id.wheelCity);
+        mWheelDistrict = (WheelView) view.findViewById(R.id.wheelDistrict);
         initProvinceDatas();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("选择地区：");
+        builder.setView(view);
+        builder.setNegativeButton("取消",null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                userLocation = mCurrentProviceName+mCurrentCityName+mCurrentDistrictName;
+                tvUserLocation.setText(userLocation);
+//                shortToast(mCurrentProviceName+mCurrentCityName+mCurrentDistrictName);
+            }
+        });
+        builder.create().show();
+
         mWheelProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
+        mWheelDistrict.addChangingListener(this);
+        mWheelCity.addChangingListener(this);
+        mWheelProvince.addChangingListener(this);
         // 设置可见条目数量
-        mWheelProvince.setVisibleItems(7);
-        mWheelCity.setVisibleItems(7);
-        mWheelDistrict.setVisibleItems(7);
+        mWheelProvince.setVisibleItems(6);
+        mWheelCity.setVisibleItems(6);
+        mWheelDistrict.setVisibleItems(6);
         updateCities();
         updateAreas();
     }
@@ -395,43 +429,6 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
     }
 
 
-    /**
-     * 初始化地区选择器的popupwindows
-     */
-    private void initPopupwindows(){
-        View popupView = View.inflate(this, R.layout.popwindows_filter_country, null);
-        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        mWheelProvince = (WheelView) popupView.findViewById(R.id.wheelProvince);
-        mWheelCity = (WheelView) popupView.findViewById(R.id.wheelCity);
-        mWheelDistrict = (WheelView) popupView.findViewById(R.id.wheelDistrict);
-        tvCancel = (TextView) popupView.findViewById(R.id.tv_cancel);
-        tvEnsure = (TextView) popupView.findViewById(R.id.tv_ensure);
-
-        mWheelDistrict.addChangingListener(this);
-        mWheelCity.addChangingListener(this);
-        mWheelProvince.addChangingListener(this);
-        tvEnsure.setOnClickListener(this);
-        tvCancel.setOnClickListener(this);
-    }
-
-
-    /**
-     * 显示popWindow
-     *
-     * */
-    public void showPop(View parent,int postion, int x, int y) {
-        //设置popwindow显示位置
-        mPopupWindow.showAtLocation(parent, postion, x, y);
-        //获取popwindow焦点
-        mPopupWindow.setFocusable(true);
-        //设置popwindow如果点击外面区域，便关闭。
-        mPopupWindow.setOutsideTouchable(true);
-//        mPopupWindow.update();
-//        if (mPopupWindow.isShowing()) {
-//
-//        }
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

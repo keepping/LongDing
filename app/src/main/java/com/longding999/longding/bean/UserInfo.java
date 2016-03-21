@@ -55,6 +55,19 @@ public class UserInfo {
         this.userRank = userRank;
     }
 
+    public UserInfo(int _id, String userIcon, String userName, String userPwd, long userBirthDay, int userGander, String userPhone, String userLocation, String userQQ, int userRank) {
+        this._id = _id;
+        this.userIcon = userIcon;
+        this.userName = userName;
+        this.userPwd = userPwd;
+        this.userBirthDay = userBirthDay;
+        this.userGander = userGander;
+        this.userPhone = userPhone;
+        this.userLocation = userLocation;
+        this.userQQ = userQQ;
+        this.userRank = userRank;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +

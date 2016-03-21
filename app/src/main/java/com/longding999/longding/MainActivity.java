@@ -90,7 +90,9 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         if (requestCode == 1000 && resultCode == 1001) {
             int id = data.getIntExtra("_id", -1);
             userInfoFragment.refreshFragment(id);
-        } else {
+        } else if(requestCode == 2000 && resultCode == 2001){
+            userInfoFragment.onActivityResult(requestCode, resultCode,data);
+        }else {
             lastRadioButton.setChecked(true);
         }
 

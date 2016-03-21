@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="test"
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
         android:textColor="@color/white"
@@ -27,21 +26,21 @@
         android:src="@mipmap/back"
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="10dp"/>
     <TextView
         android:id="@+id/tv_left"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="6dp"/>
+        android:layout_marginLeft="8dp"/>
 
     <TextView
         android:id="@+id/tv_right"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:gravity="center"
@@ -49,7 +48,7 @@
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="6dp"/>
+        android:layout_marginRight="8dp"/>
 
 
 </RelativeLayout>

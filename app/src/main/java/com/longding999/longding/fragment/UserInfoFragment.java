@@ -119,8 +119,7 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
     private void refreshViewById(int _id){
         try {
             this._id = _id;
-            List<UserInfo> id = dbManager.selector(UserInfo.class).where("_id", "=", _id).findAll();
-            UserInfo userInfo = id.get(0);
+            UserInfo userInfo  = dbManager.selector(UserInfo.class).where("_id", "=", _id).findFirst();
 
             tvUserUserName.setText(userInfo.getUserName());
             tvUserName.setText("昵称:"+userInfo.getUserName());
@@ -197,7 +196,7 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
             case R.id.iv_userset:
                 Intent intent = new Intent(mActivity, UserSetActivity.class);
                 intent.putExtra("_id",_id);
-                mActivity.startActivity(intent);
+                mActivity.startActivityForResult(intent,2000);
                 break;
 
             case R.id.btn_logout:
@@ -215,5 +214,13 @@ public class UserInfoFragment extends BasicFragment implements View.OnClickListe
 
     public interface UserInfoCallBack{
         void onLogOut();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Logger.e("fragment中onActivityResult");
+        refreshViewById(_id);
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
