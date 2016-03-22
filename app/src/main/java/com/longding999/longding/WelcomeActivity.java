@@ -3,8 +3,6 @@ package com.longding999.longding;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.longding999.longding.basic.BasicActivity;
-import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.SDCardUtils;
 
 import java.io.File;

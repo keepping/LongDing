@@ -11,10 +11,9 @@ import android.widget.RadioGroup;
 
 import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.ExpertOpinionFragment;
+import com.longding999.longding.fragment.NavigationFragment;
 import com.longding999.longding.fragment.TextLiveFragment;
 import com.longding999.longding.fragment.UserInfoFragment;
-import com.longding999.longding.fragment.VideoLiveFragment;
-import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.SharedHelper;
 
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         fm = getSupportFragmentManager();
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new VideoLiveFragment());
+        fragmentList.add(new NavigationFragment());
         fragmentList.add(new TextLiveFragment());
         fragmentList.add(new ExpertOpinionFragment());
         userInfoFragment = new UserInfoFragment();
@@ -71,18 +70,20 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.rb_mine) {
+            if (!SharedHelper.getBoolean(SharedHelper.LOGIN, false)) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, 1000);
+//                overridePendingTransition(R.anim.in_from_left,R.anim.out_from_right);
+            }
+        }
         for (int i = 0; i < group.getChildCount(); i++) {
             RadioButton rb = (RadioButton) group.getChildAt(i);
             if (rb.getId() == checkedId) {
                 showFragment(i);
             }
         }
-        if (checkedId == R.id.rb_mine) {
-            if (!SharedHelper.getBoolean(SharedHelper.LOGIN, false)) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intent, 1000);
-            }
-        }
+
     }
 
     @Override

@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -58,7 +58,6 @@
                 android:background="@color/rb_gray"></View>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,8 +93,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/rb_gray"></View>
-
-
 
 
             <LinearLayout
@@ -135,8 +132,6 @@
                 android:background="@color/rb_gray"></View>
 
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,8 +167,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/rb_gray"></View>
-
-
 
 
             <LinearLayout
@@ -213,7 +206,6 @@
                 android:background="@color/rb_gray"></View>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -251,7 +243,6 @@
                 android:background="@color/rb_gray"></View>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -282,7 +273,6 @@
                     android:text="上海"
                     android:textSize="18sp" />
             </LinearLayout>
-
 
 
         </LinearLayout>

@@ -1,4 +1,4 @@
-package com.longding999.longding.fragment;
+package com.longding999.longding;
 
 import android.content.Intent;
 import android.os.SystemClock;
@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,10 +16,12 @@ import com.gensee.entity.UserInfo;
 import com.gensee.player.OnPlayListener;
 import com.gensee.player.Player;
 import com.gensee.view.GSVideoView;
-import com.longding999.longding.FullScreenActivity;
-import com.longding999.longding.R;
 import com.longding999.longding.adapter.MyPagerAdapter;
-import com.longding999.longding.basic.BasicFragment;
+import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.fragment.ChatFragment;
+import com.longding999.longding.fragment.DisclaimerFragment;
+import com.longding999.longding.fragment.DiurnalFragment;
+import com.longding999.longding.fragment.TeacherFragment;
 import com.longding999.longding.utils.Constant;
 
 import java.util.ArrayList;
@@ -27,11 +30,11 @@ import java.util.List;
 /**
  * *****************************************************************
  * Author:LCM
- * Date: 2016/3/9 13:42
- * Desc: 视频直播碎片
+ * Date: 2016/3/22 16:50
+ * Desc:
  * *****************************************************************
  */
-public class VideoLiveFragment extends BasicFragment implements OnPlayListener,View.OnClickListener{
+public class VideoLiveActivity extends BasicActivity implements OnPlayListener,View.OnClickListener{
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -43,29 +46,38 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
     private GSVideoView mGSVideoView;
     private Player mPlayer;
 
-    private  InitParam initParam;
-    private boolean isHidden;
+    private InitParam initParam;
     @Override
-    protected void initBundle() {
+    protected void bindView() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        setContentView(R.layout.activity_videolive);
+    }
+
+    @Override
+    protected void getIntents() {
 
     }
 
     @Override
-    protected View initViews() {
-        View view = View.inflate(mActivity, R.layout.fragment_videolive, null);
-        mGSVideoView = (GSVideoView) view.findViewById(R.id.gsVideoView);
+    protected void initViews() {
+        mGSVideoView = (GSVideoView)findViewById(R.id.gsVideoView);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        tvLeft = (TextView) view.findViewById(R.id.tv_left);
-        tvRight = (TextView) view.findViewById(R.id.tv_right);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        imageLeft = (ImageView) view.findViewById(R.id.image_left);
+        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        tvLeft = (TextView)findViewById(R.id.tv_left);
+        tvRight = (TextView)findViewById(R.id.tv_right);
+        tvTitle = (TextView)findViewById(R.id.tv_title);
+        imageLeft = (ImageView)findViewById(R.id.image_left);
         tvTitle.setText("视频直播");
         tvRight.setVisibility(View.GONE);
         tvLeft.setVisibility(View.GONE);
         imageLeft.setVisibility(View.GONE);
-        return view;
+
+    }
+
+    @Override
+    protected void setListeners() {
+        mGSVideoView.setOnClickListener(this);
     }
 
     @Override
@@ -75,7 +87,7 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
         mFragments.add(new TeacherFragment());
         mFragments.add(new DiurnalFragment());
         mFragments.add(new DisclaimerFragment());
-        mAdapter = new MyPagerAdapter(getChildFragmentManager(),mFragments);
+        mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments);
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setupWithViewPager(viewPager);
@@ -84,6 +96,7 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
         mPlayer = new Player();
         initParam = new InitParam();
         initPlayer();
+
     }
 
     /**
@@ -93,59 +106,40 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
         initParam.setDomain(Constant.VIDEO_DOMAIN);
         initParam.setNumber(Constant.VIDEO_NUMBER);
         initParam.setServiceType(ServiceType.ST_CASTLINE);
-        mPlayer.join(getActivity(), initParam, this);
+        mPlayer.join(VideoLiveActivity.this, initParam, this);
         mPlayer.setGSVideoView(mGSVideoView);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        if(hidden){
-            mPlayer.leave();
-//            mPlayer.release(getActivity());
-        }else{
-            initPlayer();
-        }
-        isHidden = hidden;
-        super.onHiddenChanged(hidden);
-    }
-
-    @Override
-    protected void setListeners() {
-        mGSVideoView.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onPause() {
-        mPlayer.leave();
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        if(!isHidden) {
-            initPlayer();
-        }
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        mPlayer.leave();
-        mPlayer.release(mActivity);
-        super.onDestroy();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.gsVideoView:
-               doubleClick();
+                doubleClick();
                 break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        mPlayer.leave();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        initPlayer();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        mPlayer.leave();
+        mPlayer.release(this);
+        super.onStop();
     }
 
 
@@ -158,38 +152,13 @@ public class VideoLiveFragment extends BasicFragment implements OnPlayListener,V
         if (times.size() == 2) {
             if (times.get(times.size()-1)-times.get(0) < 500) {
                 times.clear();
-                Intent intent =new Intent(mActivity, FullScreenActivity.class);
-                mActivity.startActivity(intent);
+                Intent intent =new Intent(VideoLiveActivity.this, FullScreenActivity.class);
+                startActivity(intent);
             } else {
                 times.remove(0);
             }
         }
     }
-
-
-//    long[] mHits = new long[2];
-//    public void doubleClick() {
-//        // 双击事件响应
-//        /**
-//         * arraycopy,拷贝数组
-//         * src 要拷贝的源数组
-//         * srcPos 源数组开始拷贝的下标位置
-//         * dst 目标数组
-//         * dstPos 开始存放的下标位置
-//         * length 要拷贝的长度（元素的个数）
-//         *
-//         */
-//        //实现数组的移位操作，点击一次，左移一位，末尾补上当前开机时间（cpu的时间）
-//        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-//        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-//        //双击事件的时间间隔500ms
-//        if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
-//            //双击后具体的操作
-//            //do
-//            Intent intent =new Intent(mActivity, FullScreenActivity.class);
-//            mActivity.startActivity(intent);
-//        }
-//    }
 
     @Override
     public void onJoin(int i) {
