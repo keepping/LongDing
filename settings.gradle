@@ -1,1 +1,1 @@
-include ':app', ':xutils', ':gifview', ':roundedimageview'
+include ':app', ':xutils', ':roundedimageview', ':social_sdk_library_project'

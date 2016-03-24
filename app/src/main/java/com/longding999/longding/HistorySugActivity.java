@@ -101,10 +101,7 @@ public class HistorySugActivity extends BasicActivity implements View.OnClickLis
         mPopupWindow.setFocusable(true);
         //设置popwindow如果点击外面区域，便关闭。
         mPopupWindow.setOutsideTouchable(true);
-//        mPopupWindow.update();
-//        if (mPopupWindow.isShowing()) {
-//
-//        }
+
 
     }
 
@@ -122,10 +119,14 @@ public class HistorySugActivity extends BasicActivity implements View.OnClickLis
         setmAdapter(2016,1,27);
         try {
             List<SuggestInfo> suggestInfoList = dbManager.findAll(SuggestInfo.class);
-            long minTime = suggestInfoList.get(0).getCreateTime();
-            long maxTime = suggestInfoList.get(suggestInfoList.size() - 1).getCreateTime();
-            datePicker.setMaxDate(maxTime);
-            datePicker.setMinDate(minTime);
+            if(suggestInfoList != null) {
+                long minTime = suggestInfoList.get(0).getCreateTime();
+                long maxTime = suggestInfoList.get(suggestInfoList.size() - 1).getCreateTime();
+                datePicker.setMaxDate(maxTime);
+                datePicker.setMinDate(minTime);
+            }else{
+                shortToast("木有数据啊！");
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -152,9 +153,13 @@ public class HistorySugActivity extends BasicActivity implements View.OnClickLis
 
         try {
             List<SuggestInfo> suggestInfos = dbManager.selector(SuggestInfo.class).where("createDate", "=",builder.toString()).findAll();
-            Logger.e(suggestInfos.size()+"");
-            mAdapter = new SuggestAdapter(suggestInfos,HistorySugActivity.this);
-            mListView.setAdapter(mAdapter);
+            if(suggestInfos != null) {
+                Logger.e(suggestInfos.size() + "");
+                mAdapter = new SuggestAdapter(suggestInfos, HistorySugActivity.this);
+                mListView.setAdapter(mAdapter);
+            }else{
+                shortToast("木有数据啊！");
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }

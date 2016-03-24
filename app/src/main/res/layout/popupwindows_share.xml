@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lcm="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/share_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_wechat"
+                lcm:text="微信" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_wcpyq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_wcpyq"
+                lcm:text="朋友圈" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_qq"
+                lcm:text="QQ好友" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_qzone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_qzone"
+                lcm:text="QQ空间" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_sina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_sina"
+                lcm:text="新浪微博" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+
+            <com.longding999.longding.view.ShareView
+                android:id="@+id/share_sns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lcm:src="@mipmap/share_sns"
+                lcm:text="短信" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:id="@+id/iv_shareclose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/share_layout"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/share_close" />
+
+</RelativeLayout>

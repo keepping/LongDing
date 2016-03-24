@@ -10,7 +10,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -24,9 +23,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/usericon"
                     android:textColor="@color/black"
@@ -35,20 +36,22 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_usericon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/user"
+                    android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
-                    app:riv_corner_radius="180dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@mipmap/user"
+                    app:riv_corner_radius="180dp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -62,9 +65,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userusername"
                     android:textColor="@color/black"
@@ -80,11 +85,12 @@
                     android:paddingRight="10dp"
                     android:text="企鹅"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -98,9 +104,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userrank"
                     android:textColor="@color/black"
@@ -116,11 +124,12 @@
                     android:paddingRight="10dp"
                     android:text="VIP"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -134,9 +143,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userphone"
                     android:textColor="@color/black"
@@ -152,11 +163,12 @@
                     android:paddingRight="10dp"
                     android:text="15178679291"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -170,9 +182,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/pwd"
                     android:textColor="@color/black"
@@ -181,13 +195,13 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                     />
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -198,17 +212,19 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/rb_gray"
-                android:layout_marginTop="20dp"></View>
+                android:layout_marginTop="20dp"
+                android:background="@color/rb_gray"></View>
 
             <LinearLayout
                 android:id="@+id/layout_usergander"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/usergander"
                     android:textColor="@color/black"
@@ -224,11 +240,12 @@
                     android:paddingRight="10dp"
                     android:text="男"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -241,9 +258,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userbirthday"
                     android:textColor="@color/black"
@@ -259,11 +278,12 @@
                     android:paddingRight="10dp"
                     android:text="1993-05-16"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -272,15 +292,16 @@
                 android:background="@color/rb_gray"></View>
 
 
-
             <LinearLayout
                 android:id="@+id/layout_userQQ"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userqq"
                     android:textColor="@color/black"
@@ -296,11 +317,12 @@
                     android:paddingRight="10dp"
                     android:text="105474493"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
@@ -314,9 +336,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/userlocation"
                     android:textColor="@color/black"
@@ -332,11 +356,12 @@
                     android:paddingRight="10dp"
                     android:text="上海"
                     android:textSize="18sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/icon_right"
-                    android:paddingRight="10dp"/>
+                    android:paddingRight="10dp"
+                    android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View

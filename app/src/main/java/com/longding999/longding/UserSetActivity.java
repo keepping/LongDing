@@ -120,6 +120,18 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
         layoutUserQQ = (LinearLayout) findViewById(R.id.layout_userQQ);
         layoutUserPwd = (LinearLayout) findViewById(R.id.layout_userpwd);
         layoutUserRank = (LinearLayout) findViewById(R.id.layout_userrank);
+
+        if(MyApplication.isLOLLIPOP){
+            layoutUserBirthday.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserGander.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserIcon.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserLocation.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserName.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserPhone.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserQQ.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserPwd.setBackgroundResource(R.drawable.ripple_bg);
+            layoutUserRank.setBackgroundResource(R.drawable.ripple_bg);
+        }
     }
 
     @Override
@@ -181,11 +193,6 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
         }
 
     }
-
-
-
-
-
 
 
     @Override

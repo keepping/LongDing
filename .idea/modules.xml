@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LongDing.iml" filepath="$PROJECT_DIR$/LongDing.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gifview/gifview.iml" filepath="$PROJECT_DIR$/gifview/gifview.iml" />
       <module fileurl="file://$PROJECT_DIR$/roundedimageview/roundedimageview.iml" filepath="$PROJECT_DIR$/roundedimageview/roundedimageview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" filepath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
       <module fileurl="file://$PROJECT_DIR$/xutils/xutils.iml" filepath="$PROJECT_DIR$/xutils/xutils.iml" />
     </modules>
   </component>

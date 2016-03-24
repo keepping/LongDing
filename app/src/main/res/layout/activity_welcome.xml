@@ -11,13 +11,13 @@
         android:src="@mipmap/lauchscreen"
         android:scaleType="fitXY"/>
 
-    <com.cunoraz.gifview.library.GifView
+    <com.longding999.longding.view.GifView
         android:id="@+id/gifView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:gif="@mipmap/welcome">
 
-    </com.cunoraz.gifview.library.GifView>
+    </com.longding999.longding.view.GifView>
 
 
 </RelativeLayout>

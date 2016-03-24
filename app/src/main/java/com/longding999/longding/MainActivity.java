@@ -10,10 +10,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.longding999.longding.basic.BasicFragmentActivity;
-import com.longding999.longding.fragment.ExpertOpinionFragment;
-import com.longding999.longding.fragment.NavigationFragment;
-import com.longding999.longding.fragment.TextLiveFragment;
+import com.longding999.longding.fragment.SuggestFragment;
+import com.longding999.longding.fragment.HomeFragment;
+import com.longding999.longding.fragment.MarketFragment;
 import com.longding999.longding.fragment.UserInfoFragment;
+import com.longding999.longding.utils.MyApplication;
 import com.longding999.longding.utils.SharedHelper;
 
 import java.util.ArrayList;
@@ -48,6 +49,12 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     protected void initViews() {
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         lastRadioButton = (RadioButton) mRadioGroup.getChildAt(0);
+        if(MyApplication.isLOLLIPOP) {
+            for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
+                RadioButton rb = (RadioButton) mRadioGroup.getChildAt(i);
+                rb.setBackgroundResource(R.drawable.ripple_bg);
+            }
+        }
     }
 
     @Override
@@ -60,9 +67,9 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         fm = getSupportFragmentManager();
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new NavigationFragment());
-        fragmentList.add(new TextLiveFragment());
-        fragmentList.add(new ExpertOpinionFragment());
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new MarketFragment());
+        fragmentList.add(new SuggestFragment());
         userInfoFragment = new UserInfoFragment();
         fragmentList.add(userInfoFragment);
         fm.beginTransaction().add(R.id.frameLayout, fragmentList.get(currentTabIndex)).commit();

@@ -10,9 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.cunoraz.gifview.library.GifView;
 import com.longding999.longding.basic.BasicActivity;
 import com.longding999.longding.utils.SDCardUtils;
+import com.longding999.longding.view.GifView;
 
 import java.io.File;
 import java.io.IOException;

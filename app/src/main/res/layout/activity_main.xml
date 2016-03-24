@@ -21,30 +21,33 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioButton
-            android:id="@+id/rb_videoLive"
+            android:id="@+id/rb_home"
             style="@style/MyRadioButtonStyle"
-            android:text="@string/video_live"
-            android:drawableTop="@drawable/slt_rb_videolive"
+            android:text="@string/text_home"
+            android:drawableTop="@drawable/slt_rb_home"
             android:checked="true"
             />
 
         <RadioButton
-            android:id="@+id/rb_textLive"
-            android:text="@string/text_live"
+            android:id="@+id/rb_market"
+            android:text="@string/text_market"
             style="@style/MyRadioButtonStyle"
-            android:drawableTop="@drawable/slt_rb_textlive"/>
+            android:drawableTop="@drawable/slt_rb_market"
+            />
 
         <RadioButton
-            android:id="@+id/rb_expertOpinion"
-            android:text="@string/expert_opinion"
+            android:id="@+id/rb_suggest"
+            android:text="@string/text_suggest"
             style="@style/MyRadioButtonStyle"
-            android:drawableTop="@drawable/slt_rb_expertopinion"/>
+            android:drawableTop="@drawable/slt_rb_suggest"
+            />
 
         <RadioButton
             android:id="@+id/rb_mine"
-            android:text="@string/mine"
+            android:text="@string/text_mine"
             style="@style/MyRadioButtonStyle"
-            android:drawableTop="@drawable/slt_rb_mine"/>
+            android:drawableTop="@drawable/slt_rb_mine"
+           />
     </RadioGroup>
 
 </LinearLayout>
