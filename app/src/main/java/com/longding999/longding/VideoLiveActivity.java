@@ -1,6 +1,7 @@
 package com.longding999.longding;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
@@ -27,7 +28,11 @@ import com.longding999.longding.fragment.DisclaimerFragment;
 import com.longding999.longding.fragment.DiurnalFragment;
 import com.longding999.longding.fragment.TeacherFragment;
 import com.longding999.longding.utils.Constant;
+import com.longding999.longding.utils.ShareUtils;
 import com.longding999.longding.view.ShareView;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +67,10 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
     private PopupWindow shareWindow;
     private ShareView shareWechat,shareWcpyq,shareQQ,shareQzone,shareSns,shareSina;
     private ImageView ivShareClose;
+
+    private ShareUtils mShareUtils;
+    private UMImage shareImage;
+    private String  shareUrl;
 
     @Override
     protected void bindView() {
@@ -116,6 +125,9 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
 
         mPlayer = new Player();
         initParam = new InitParam();
+        mShareUtils = new ShareUtils(VideoLiveActivity.this);
+        shareImage = new UMImage(VideoLiveActivity.this,"http://www.umeng.com/images/pic/social/integrated_3.png");
+        shareUrl = "http://liveqianlong.com";
         initPlayer();
         initPopWindow();
 
@@ -153,7 +165,7 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
                 break;
 
             case R.id.iv_video_share:
-                showPop(rootLayout, Gravity.BOTTOM,0,0);
+                showPop(rootLayout, Gravity.TOP,0,0);
                 hideVideButton();
                 break;
 
@@ -178,32 +190,51 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
 
             //分享到qq好友
             case R.id.share_qq:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+                mShareUtils.ShareAction(SHARE_MEDIA.QQ,"龙鼎直播",shareUrl);
                 break;
 
             //分享到QQ空间
             case R.id.share_qzone:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+                mShareUtils.ShareAction(SHARE_MEDIA.QZONE,"龙鼎直播",shareUrl);
                 break;
 
             //分享到新浪微博
             case R.id.share_sina:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+//                mShareUtils.ShareAction(SHARE_MEDIA.SINA,"龙鼎直播",shareUrl);
+                shortToast("正在审核");
                 break;
 
             //分享到短信
             case R.id.share_sns:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+                mShareUtils.ShareAction(SHARE_MEDIA.SMS,"龙鼎直播",shareUrl);
                 break;
 
             //分享到微信
             case R.id.share_wechat:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN,"龙鼎直播",shareUrl);
                 break;
 
             //分享到微信朋友圈
             case R.id.share_wcpyq:
-                shortToast("等待审核");
+                if(shareWindow.isShowing()){
+                    shareWindow.dismiss();
+                }
+                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN_CIRCLE,"龙鼎直播",shareUrl);
                 break;
 
             default:
@@ -351,6 +382,13 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
         super.onStop();
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get( this ).onActivityResult( requestCode, resultCode, data);
+
+    }
 
     /**
      * 响应双击事件

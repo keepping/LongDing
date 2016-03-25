@@ -14,6 +14,7 @@ public class SharedHelper {
     private static String SHARED_NAME = "LONGDING999";
     public static String   LOGIN = "LOGIN";
     public static String ID = "id";
+    public static String ISFIRSTIN = "isFirstIn";
 
 
     /**

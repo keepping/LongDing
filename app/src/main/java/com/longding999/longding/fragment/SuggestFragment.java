@@ -26,6 +26,7 @@ import com.longding999.longding.utils.Constant;
 import com.longding999.longding.utils.DateParseUtils;
 import com.longding999.longding.utils.DbHelper;
 import com.longding999.longding.utils.Logger;
+import com.longding999.longding.utils.SharedHelper;
 import com.longding999.longding.utils.VolleyUtils;
 
 import org.xutils.DbManager;
@@ -45,7 +46,7 @@ import java.util.List;
  * *****************************************************************
  */
 public class SuggestFragment extends BasicFragment {
-    private TextView tvTitle,tvLeft,tvRight;
+    private TextView tvTitle, tvLeft, tvRight;
     private ImageView imageLeft;
 
     private DbManager dbManager;
@@ -87,14 +88,14 @@ public class SuggestFragment extends BasicFragment {
             @Override
             public void onResponse(String s) {
                 Logger.e(s);
-                new AsyncTask<String,Void,List<SuggestInfo>>(){
+                new AsyncTask<String, Void, List<SuggestInfo>>() {
 
                     @Override
                     protected List<SuggestInfo> doInBackground(String... params) {
                         String s1 = params[0];
                         JSONArray jsonArray = JSONArray.parseArray(s1);
                         List<SuggestInfo> list = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.size();i++){
+                        for (int i = 0; i < jsonArray.size(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Integer id = jsonObject.getInteger("id");
                             String createTime = jsonObject.getString("createTime");
@@ -108,7 +109,7 @@ public class SuggestFragment extends BasicFragment {
                             String stoploss = jsonObject.getString("stoploss");
                             String ps = jsonObject.getString("ps");
                             long date = DateParseUtils.parseStringToLong(createTime);
-                            list.add(new SuggestInfo(id,date,DateParseUtils.parseLongToString(date),createUserID,createUserName,comefrom,category,goods,openprice,stopprofit,stoploss,ps));
+                            list.add(new SuggestInfo(id, date, DateParseUtils.parseLongToString(date), createUserID, createUserName, comefrom, category, goods, openprice, stopprofit, stoploss, ps));
                         }
                         return list;
                     }
@@ -117,7 +118,7 @@ public class SuggestFragment extends BasicFragment {
                     protected void onPostExecute(List<SuggestInfo> suggestInfos) {
                         try {
                             dbManager.save(suggestInfos);
-                            Logger.e("存入数据大小："+suggestInfos.size());
+                            Logger.e("存入数据大小：" + suggestInfos.size());
                         } catch (DbException e) {
                             e.printStackTrace();
                         }
@@ -131,8 +132,12 @@ public class SuggestFragment extends BasicFragment {
 
             }
         });
-//        mQueue.add(stringRequest);
-        setmAdapter();
+        if (!SharedHelper.getBoolean("first", false)) {
+            mQueue.add(stringRequest);
+            SharedHelper.saveBoolean("first",true);
+        }else{
+            setmAdapter();
+        }
 
     }
 
@@ -157,16 +162,16 @@ public class SuggestFragment extends BasicFragment {
     /**
      * 设置适配器
      */
-    public void setmAdapter(){
+    public void setmAdapter() {
         long currentTimeMillis = System.currentTimeMillis();
         String currentTime = DateParseUtils.parseLongToString(currentTimeMillis);
-        Logger.e("currentTime"+currentTime);
+        Logger.e("currentTime" + currentTime);
 
         try {
             List<SuggestInfo> suggestInfos = dbManager.selector(SuggestInfo.class).where("createDate", "=", "2016-01-27").findAll();
-            if(suggestInfos == null){
+            if (suggestInfos == null) {
                 shortToast("木有数据啊！");
-            }else {
+            } else {
                 Logger.e(suggestInfos.size() + "");
                 mAdapter = new SuggestAdapter(suggestInfos, mActivity);
                 mListView.setAdapter(mAdapter);
