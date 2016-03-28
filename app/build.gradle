@@ -18,9 +18,6 @@ android {
         }
     }
 
-
-
-
 }
 
 dependencies {
@@ -35,7 +32,6 @@ dependencies {
     compile files('libs/gensee_rtmpplayer.jar')
     compile files('libs/volly.jar')
     compile project(':xutils')
-    compile files('libs/fastjson-1.2.8.jar')
     compile project(':roundedimageview')
     compile project(':social_sdk_library_project')
     compile 'com.android.support:support-v4:23.2.0'

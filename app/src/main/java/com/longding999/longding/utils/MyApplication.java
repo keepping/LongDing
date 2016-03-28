@@ -38,7 +38,7 @@ public class MyApplication extends Application {
         PlatformConfig.setSinaWeibo("3686775990", "99a6b02ad07a70265dfbd8ce550e596e");
         //易信
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
-        PlatformConfig.setQQZone("1105208777", "aoJLCFrtls5TJXEZ");
+        PlatformConfig.setQQZone("1105258140", "NLhWXDfF1P04dpi6");
 //        PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
 //        PlatformConfig.setAlipay("2015111700822536");
 //        PlatformConfig.setLaiwang("laiwangd497e70d4", "d497e70d4c3e4efeab1381476bac4c5e");

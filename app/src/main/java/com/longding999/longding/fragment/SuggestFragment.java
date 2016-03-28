@@ -2,16 +2,13 @@ package com.longding999.longding.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,13 +26,13 @@ import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.SharedHelper;
 import com.longding999.longding.utils.VolleyUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,23 +90,29 @@ public class SuggestFragment extends BasicFragment {
                     @Override
                     protected List<SuggestInfo> doInBackground(String... params) {
                         String s1 = params[0];
-                        JSONArray jsonArray = JSONArray.parseArray(s1);
-                        List<SuggestInfo> list = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.size(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            Integer id = jsonObject.getInteger("id");
-                            String createTime = jsonObject.getString("createTime");
-                            Integer createUserID = jsonObject.getInteger("createUserID");
-                            String createUserName = jsonObject.getString("createUserName");
-                            String comefrom = jsonObject.getString("comefrom");
-                            String category = jsonObject.getString("category");
-                            String goods = jsonObject.getString("goods");
-                            String openprice = jsonObject.getString("openprice");
-                            String stopprofit = jsonObject.getString("stopprofit");
-                            String stoploss = jsonObject.getString("stoploss");
-                            String ps = jsonObject.getString("ps");
-                            long date = DateParseUtils.parseStringToLong(createTime);
-                            list.add(new SuggestInfo(id, date, DateParseUtils.parseLongToString(date), createUserID, createUserName, comefrom, category, goods, openprice, stopprofit, stoploss, ps));
+                        JSONArray jsonArray = null;
+                        List<SuggestInfo> list = null;
+                        try {
+                            jsonArray = new JSONArray(s1);
+                            list = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Integer id = jsonObject.getInt("id");
+                                String createTime = jsonObject.getString("createTime");
+                                Integer createUserID = jsonObject.getInt("createUserID");
+                                String createUserName = jsonObject.getString("createUserName");
+                                String comefrom = jsonObject.getString("comefrom");
+                                String category = jsonObject.getString("category");
+                                String goods = jsonObject.getString("goods");
+                                String openprice = jsonObject.getString("openprice");
+                                String stopprofit = jsonObject.getString("stopprofit");
+                                String stoploss = jsonObject.getString("stoploss");
+                                String ps = jsonObject.getString("ps");
+                                long date = DateParseUtils.parseStringToLong(createTime);
+                                list.add(new SuggestInfo(id, date, DateParseUtils.parseLongToString(date), createUserID, createUserName, comefrom, category, goods, openprice, stopprofit, stoploss, ps));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                         return list;
                     }
@@ -134,8 +137,8 @@ public class SuggestFragment extends BasicFragment {
         });
         if (!SharedHelper.getBoolean("first", false)) {
             mQueue.add(stringRequest);
-            SharedHelper.saveBoolean("first",true);
-        }else{
+            SharedHelper.saveBoolean("first", true);
+        } else {
             setmAdapter();
         }
 

@@ -59,7 +59,8 @@
         </activity>
 
         <activity android:name=".VideoLiveActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
 
