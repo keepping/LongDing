@@ -60,7 +60,7 @@
 
         <activity android:name=".VideoLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
 

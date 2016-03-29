@@ -35,4 +35,5 @@ dependencies {
     compile project(':roundedimageview')
     compile project(':social_sdk_library_project')
     compile 'com.android.support:support-v4:23.2.0'
+    compile 'com.squareup.picasso:picasso:2.3.2'
 }
