@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import com.longding999.longding.R;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.listener.GlobalOnItemClickManager;
+import com.longding999.longding.utils.Logger;
 import com.longding999.longding.view.EmotionInputDetector;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import java.util.List;
  * Desc: 聊天碎片
  * *****************************************************************
  */
-public class ChatFragment extends BasicFragment implements View.OnClickListener{
+public class ChatFragment extends BasicFragment implements View.OnClickListener {
     private EmotionInputDetector mDetector;
     private ListView mListView;
 
@@ -33,13 +35,15 @@ public class ChatFragment extends BasicFragment implements View.OnClickListener{
     private Button btnReply;
     private LinearLayout emotionLayout;
 
-    private Button btnEmotionClassic,btnEmotionMokey;
+    private Button btnEmotionClassic, btnEmotionMokey;
 
     private FragmentManager fm;
     private FragmentTransaction ft;
 
     private int currentTabIndex = 0;
     private List<Fragment> fragmentList;
+
+    private InputMethodManager mInputManager;
 
 
     @Override
@@ -78,8 +82,8 @@ public class ChatFragment extends BasicFragment implements View.OnClickListener{
         fragmentList.add(new MokeyFragment());
         fm.beginTransaction().add(R.id.framelayout, fragmentList.get(currentTabIndex)).commit();
         GlobalOnItemClickManager globalOnItemClickListener = GlobalOnItemClickManager.getInstance();
-        globalOnItemClickListener.attachToEditText(mActivity,edtText);
-
+        globalOnItemClickListener.attachToEditText(mActivity, edtText);
+        mInputManager = (InputMethodManager) mActivity.getSystemService(mActivity.INPUT_METHOD_SERVICE);
     }
 
     @Override
@@ -91,7 +95,7 @@ public class ChatFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_emotion_classic:
                 showFragment(0);
                 break;
@@ -127,5 +131,14 @@ public class ChatFragment extends BasicFragment implements View.OnClickListener{
 
         }
 
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(!isVisibleToUser && mInputManager!=null && edtText!=null){
+            mInputManager.hideSoftInputFromWindow(edtText.getWindowToken(), 0);
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 }

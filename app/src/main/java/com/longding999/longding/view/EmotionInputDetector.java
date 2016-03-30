@@ -10,10 +10,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.longding999.longding.utils.Logger;
 
 /**
  * *****************************************************************
@@ -34,7 +37,8 @@ public class EmotionInputDetector {
     private EditText mEditText;
     private View mContentView;
 
-    private EmotionInputDetector() {}
+    private EmotionInputDetector() {
+    }
 
     public static EmotionInputDetector with(Activity activity) {
         EmotionInputDetector emotionInputDetector = new EmotionInputDetector();
@@ -65,10 +69,28 @@ public class EmotionInputDetector {
                             unlockContentHeightDelayed();
                         }
                     }, 200L);
-                }
+                } /*else if (event.getAction() == MotionEvent.ACTION_UP && !mEmotionLayout.isShown()) {
+                    showEmotionLayout();
+                    mEditText.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lockContentHeight();
+                        }
+                    }, 50L);
+                    showSoftInput();
+                    mEditText.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideEmotionLayout(true);
+                            unlockContentHeightDelayed();
+                        }
+                    }, 100L);
+
+                }*/
                 return false;
             }
         });
+
         return this;
     }
 
@@ -99,7 +121,7 @@ public class EmotionInputDetector {
         return this;
     }
 
-    public EmotionInputDetector build(){
+    public EmotionInputDetector build() {
         mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         hideSoftInput();
@@ -147,6 +169,7 @@ public class EmotionInputDetector {
                 ((LinearLayout.LayoutParams) mContentView.getLayoutParams()).weight = 1.0F;
             }
         }, 200L);
+
     }
 
     private void showSoftInput() {
@@ -167,21 +190,27 @@ public class EmotionInputDetector {
         return getSupportSoftInputHeight() != 0;
     }
 
+
     private int getSupportSoftInputHeight() {
         Rect r = new Rect();
         mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
         int screenHeight = mActivity.getWindow().getDecorView().getRootView().getHeight();
+        Logger.e("screenHeight:" + screenHeight); //2560
         int softInputHeight = screenHeight - r.bottom;
+        Logger.e("r.height:"+r.height()+ "  r.bottom"+r.bottom+"  r.top"+r.top);
+        Logger.e("softinputHeight:" + softInputHeight);  //168
         if (Build.VERSION.SDK_INT >= 20) {
             // When SDK Level >= 20 (Android L), the softInputHeight will contain the height of softButtonsBar (if has)
             softInputHeight = softInputHeight - getSoftButtonsBarHeight();
+            Logger.e("5.0 softinputHeight:" + softInputHeight); //0
         }
         if (softInputHeight < 0) {
-            Log.w("EmotionInputDetector", "Warning: value of softInputHeight is below zero!");
+            Logger.e("Warning: value of softInputHeight is below zero!");
         }
         if (softInputHeight > 0) {
             sp.edit().putInt(SHARE_PREFERENCE_TAG, softInputHeight).apply();
         }
+        Logger.e("softInputHeight:" + softInputHeight);
         return softInputHeight;
     }
 

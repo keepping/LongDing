@@ -6,10 +6,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/text_minor"/>
+        android:background="@color/text_hint"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="6dp">
         <ImageView
@@ -24,10 +24,10 @@
             android:id="@+id/edt_text"
             android:layout_width="0dp"
             android:layout_weight="4"
-            android:layout_height="36dp"
+            android:layout_height="match_parent"
             android:background="@drawable/shape_rectangle_gray"
             android:layout_gravity="center_vertical"
-            android:lines="1"/>
+            android:padding="4dp"/>
 
         <Button
             android:id="@+id/btn_reply"
@@ -37,13 +37,14 @@
             android:layout_marginLeft="10dp"
             android:background="@color/rb_red"
             android:text="发送"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/white"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/text_minor"/>
+        android:layout_height="0.5dp"
+        android:background="@color/text_hint"/>
     <LinearLayout
         android:id="@+id/emotion_layout"
         android:layout_width="match_parent"
@@ -57,11 +58,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/text_hint"/>
         <LinearLayout
             android:id="@+id/category_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_emotion_classic"
@@ -69,15 +73,24 @@
                 android:layout_height="match_parent"
                 android:text="经典"
                 android:textColor="@color/text_title"
-                android:background="@drawable/shape_rectangle_gray"/>
+                android:background="@null"/>
 
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/text_hint"/>
             <Button
                 android:id="@+id/btn_emotion_monkey"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_rectangle_gray"
+                android:background="@null"
                 android:text="嘻哈猴"
                 android:textColor="@color/text_title"/>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/text_hint"/>
         </LinearLayout>
 
     </LinearLayout>

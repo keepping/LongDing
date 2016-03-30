@@ -16,7 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by dss886 on 15/9/22.
+ * *****************************************************************
+ * Author:LCM
+ * Date: 2016/3/29 15:51
+ * Desc: 表情点击监听
+ * *****************************************************************
  */
 public class GlobalOnItemClickManager {
 
@@ -36,9 +40,7 @@ public class GlobalOnItemClickManager {
     public void attachToEditText(Context context,EditText editText) {
         mContext = context;
         mEditText = editText;
-
         assetManager = context.getAssets();
-
     }
 
     public AdapterView.OnItemClickListener getOnItemClickListener(final int emojiType,final  int page) {
@@ -48,8 +50,6 @@ public class GlobalOnItemClickManager {
                 StringBuilder sb = new StringBuilder();
                 switch (emojiType) {
                     case 0:
-//                        String path = "file:///android_asset/ems/emoji_1f6" +position + ".png";
-
                         try {
                             InputStream is = assetManager.open("emoji_1f6" + (page*21+position) + ".png");
                             bitmap = BitmapFactory.decodeStream(is);
@@ -66,17 +66,9 @@ public class GlobalOnItemClickManager {
                             e.printStackTrace();
                         }
 
-
-
                         break;
                     case 1:
                         sb.append("[ema").append(String.valueOf(position)).append("]");
-                        break;
-                    case 2:
-                        sb.append("[emb").append(String.valueOf(position)).append("]");
-                        break;
-                    case 3:
-                        sb.append("[emc").append(String.valueOf(position)).append("]");
                         break;
                 }
             }
