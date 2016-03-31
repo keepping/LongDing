@@ -6,13 +6,19 @@ import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.gensee.common.ServiceType;
@@ -23,12 +29,18 @@ import com.gensee.player.Player;
 import com.gensee.view.GSVideoView;
 import com.longding999.longding.adapter.MyPagerAdapter;
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.basic.BasicAppCompatActivity;
+import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.ChatFragment;
+import com.longding999.longding.fragment.ClassicFragment;
 import com.longding999.longding.fragment.DisclaimerFragment;
 import com.longding999.longding.fragment.DiurnalFragment;
+import com.longding999.longding.fragment.MokeyFragment;
 import com.longding999.longding.fragment.TeacherFragment;
+import com.longding999.longding.listener.GlobalOnItemClickManager;
 import com.longding999.longding.utils.Constant;
 import com.longding999.longding.utils.ShareUtils;
+import com.longding999.longding.view.EmotionInputDetector;
 import com.longding999.longding.view.ShareView;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -44,7 +56,7 @@ import java.util.List;
  * Desc: 视频直播页面
  * *****************************************************************
  */
-public class VideoLiveActivity extends BasicActivity implements OnPlayListener, View.OnClickListener {
+public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayListener, View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -71,6 +83,25 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
     private ShareUtils mShareUtils;
     private UMImage shareImage;
     private String  shareUrl;
+
+
+    private LinearLayout layoutReply;
+    private LinearLayout layoutConent;
+    private EmotionInputDetector mDetector;
+    private ImageView imageEmotionButton;
+    private EditText edtText;
+    private Button btnReply;
+    private LinearLayout emotionLayout;
+
+    private Button btnEmotionClassic, btnEmotionMokey;
+
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+
+    private int currentTabIndex = 0;
+    private List<Fragment> fragmentList;
+
+    private InputMethodManager mInputManager;
 
     @Override
     protected void bindView() {
@@ -99,6 +130,26 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
         ivVideoShare = (ImageView) findViewById(R.id.iv_video_share);
         ivVideoSound = (ImageView) findViewById(R.id.iv_video_sound);
         ivVideoVideo = (ImageView) findViewById(R.id.iv_video_video);
+
+        layoutReply = (LinearLayout) findViewById(R.id.layout_reply);
+        layoutConent = (LinearLayout) findViewById(R.id.layout_content);
+
+        imageEmotionButton = (ImageView) findViewById(R.id.iv_emoji_button);
+        edtText = (EditText) findViewById(R.id.edt_text);
+        btnReply = (Button) findViewById(R.id.btn_reply);
+        emotionLayout = (LinearLayout) findViewById(R.id.emotion_layout);
+
+        btnEmotionClassic = (Button) findViewById(R.id.btn_emotion_classic);
+        btnEmotionMokey = (Button) findViewById(R.id.btn_emotion_monkey);
+
+        mDetector = EmotionInputDetector.with(VideoLiveActivity.this)
+                .bindToEditText(edtText)
+                .bindToEmotionButton(imageEmotionButton)
+                .bindToContent(layoutConent)
+                .setEmotionView(emotionLayout)
+                .build();
+
+
     }
 
     @Override
@@ -109,6 +160,29 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
         ivVideoShare.setOnClickListener(this);
         ivVideoMagnify.setOnClickListener(this);
         ivVideoBack.setOnClickListener(this);
+        btnEmotionClassic.setOnClickListener(this);
+        btnEmotionMokey.setOnClickListener(this);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(position ==0){
+                    layoutReply.setVisibility(View.VISIBLE);
+                }else{
+                    layoutReply.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -131,6 +205,15 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
         initPlayer();
         initPopWindow();
 
+
+        fm = getSupportFragmentManager();
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new ClassicFragment());
+        fragmentList.add(new MokeyFragment());
+        fm.beginTransaction().add(R.id.framelayout, fragmentList.get(currentTabIndex)).commit();
+        GlobalOnItemClickManager globalOnItemClickListener = GlobalOnItemClickManager.getInstance();
+        globalOnItemClickListener.attachToEditText(this, edtText);
+        mInputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
     /**
@@ -237,9 +320,40 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
                 mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN_CIRCLE,"龙鼎直播",shareUrl);
                 break;
 
+
+            case R.id.btn_emotion_classic:
+                showFragment(0);
+                break;
+
+            case R.id.btn_emotion_monkey:
+                showFragment(1);
+                break;
+
             default:
                 break;
         }
+    }
+    /**
+     * 根据选中radiobutton下表显示fragment
+     *
+     * @param targetTabIndex
+     */
+    public void showFragment(int targetTabIndex) {
+        ft = fm.beginTransaction();
+        if (targetTabIndex != currentTabIndex) {
+            Fragment currentFragment = fragmentList.get(currentTabIndex);
+            Fragment targetFragment = fragmentList.get(targetTabIndex);
+
+            if (!targetFragment.isAdded()) {
+                ft.add(R.id.framelayout, targetFragment).hide(currentFragment).commitAllowingStateLoss();
+            } else {
+                ft.show(targetFragment).hide(currentFragment).commitAllowingStateLoss();
+            }
+
+            currentTabIndex = targetTabIndex;
+
+        }
+
     }
 
 
@@ -425,7 +539,7 @@ public class VideoLiveActivity extends BasicActivity implements OnPlayListener, 
     @Override
     protected void onRestart() {
         super.onRestart();
-        rootLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+       // rootLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
     @Override

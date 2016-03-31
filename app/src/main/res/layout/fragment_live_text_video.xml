@@ -5,15 +5,8 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/chat_list"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:transcriptMode="normal">
-
-    </ListView>
-
-
-
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

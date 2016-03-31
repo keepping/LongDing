@@ -72,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="经典"
+                android:textSize="16sp"
                 android:textColor="@color/text_title"
                 android:background="@null"/>
 
@@ -85,6 +86,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:text="嘻哈猴"
+                android:textSize="16sp"
                 android:textColor="@color/text_title"/>
 
             <View

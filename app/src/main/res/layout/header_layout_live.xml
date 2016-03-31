@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/rb_red"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/y50"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y20"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_video_live"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/slt_rb_live_left"
+            android:button="@null"
+            android:checked="true"
+            android:text="视频直播"
+            android:textSize="@dimen/x32"
+            android:textColor="@drawable/slt_rb_color_text"/>
+
+        <RadioButton
+            android:id="@+id/rb_text_live"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:background="@drawable/slt_rb_live_right"
+            android:text="文字直播"
+            android:textSize="@dimen/x32"
+            android:textColor="@drawable/slt_rb_color_text"/>
+    </RadioGroup>
+
+
+</RelativeLayout>

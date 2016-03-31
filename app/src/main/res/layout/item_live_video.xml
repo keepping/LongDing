@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y546"
+        android:orientation="vertical"
+        android:padding="@dimen/x40">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_live_screenshot"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y300"
+                android:src="@mipmap/guidepage1"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/tv_live_categroy"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/y40"
+                android:background="#d22222"
+                android:textColor="@color/white"
+                android:text="（原油）"
+                android:textSize="@dimen/x20"
+                android:gravity="center"/>
+        </RelativeLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/y40">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分析师："
+                android:textSize="@dimen/x30"/>
+
+            <TextView
+                android:id="@+id/tv_live_teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="王老师"
+                android:textSize="@dimen/x32"
+                android:textColor="@color/text_suggest"/>
+
+            <TextView
+                android:id="@+id/tv_live_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(12:00-14:00)"
+                android:layout_marginLeft="20dp"
+                android:textSize="@dimen/x26"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_live_brief"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:textSize="@dimen/x26"
+            android:paddingTop="@dimen/x20"
+            android:text="    以实际行情走势为导向，以蜡烛图交易信号为基础，稳扎稳打，步步为营"/>
+        
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y20"
+        android:background="#ebebeb"/>
+
+</LinearLayout>

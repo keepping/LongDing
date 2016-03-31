@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.longding999.longding.basic.BasicFragmentActivity;
+import com.longding999.longding.fragment.LiveFragment;
 import com.longding999.longding.fragment.SuggestFragment;
 import com.longding999.longding.fragment.HomeFragment;
 import com.longding999.longding.fragment.MarketFragment;
@@ -68,7 +69,7 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
-        fragmentList.add(new MarketFragment());
+        fragmentList.add(new LiveFragment());
         fragmentList.add(new SuggestFragment());
         userInfoFragment = new UserInfoFragment();
         fragmentList.add(userInfoFragment);

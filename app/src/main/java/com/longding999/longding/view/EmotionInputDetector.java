@@ -7,9 +7,9 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -37,6 +37,8 @@ public class EmotionInputDetector {
     private EditText mEditText;
     private View mContentView;
 
+    private int rootInvisibleHeight;
+
     private EmotionInputDetector() {
     }
 
@@ -45,6 +47,7 @@ public class EmotionInputDetector {
         emotionInputDetector.mActivity = activity;
         emotionInputDetector.mInputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         emotionInputDetector.sp = activity.getSharedPreferences(SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+
         return emotionInputDetector;
     }
 
@@ -69,8 +72,9 @@ public class EmotionInputDetector {
                             unlockContentHeightDelayed();
                         }
                     }, 200L);
-                } /*else if (event.getAction() == MotionEvent.ACTION_UP && !mEmotionLayout.isShown()) {
+                } else if (event.getAction() == MotionEvent.ACTION_UP && !mEmotionLayout.isShown()) {
                     showEmotionLayout();
+
                     mEditText.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -86,7 +90,7 @@ public class EmotionInputDetector {
                         }
                     }, 100L);
 
-                }*/
+                }
                 return false;
             }
         });
@@ -125,6 +129,7 @@ public class EmotionInputDetector {
         mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         hideSoftInput();
+        getSupportSoftInputHeight();
         return this;
     }
 
@@ -137,7 +142,8 @@ public class EmotionInputDetector {
     }
 
     private void showEmotionLayout() {
-        int softInputHeight = getSupportSoftInputHeight();
+        int softInputHeight = rootInvisibleHeight;
+        Logger.e("softInputHeight:"+softInputHeight);
         if (softInputHeight == 0) {
             softInputHeight = sp.getInt(SHARE_PREFERENCE_TAG, 400);
         }
@@ -187,12 +193,12 @@ public class EmotionInputDetector {
     }
 
     private boolean isSoftInputShown() {
-        return getSupportSoftInputHeight() != 0;
+        return rootInvisibleHeight != 0;
     }
 
 
-    private int getSupportSoftInputHeight() {
-        Rect r = new Rect();
+    private void getSupportSoftInputHeight() {
+     /*   Rect r = new Rect();
         mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
         int screenHeight = mActivity.getWindow().getDecorView().getRootView().getHeight();
         Logger.e("screenHeight:" + screenHeight); //2560
@@ -200,7 +206,6 @@ public class EmotionInputDetector {
         Logger.e("r.height:"+r.height()+ "  r.bottom"+r.bottom+"  r.top"+r.top);
         Logger.e("softinputHeight:" + softInputHeight);  //168
         if (Build.VERSION.SDK_INT >= 20) {
-            // When SDK Level >= 20 (Android L), the softInputHeight will contain the height of softButtonsBar (if has)
             softInputHeight = softInputHeight - getSoftButtonsBarHeight();
             Logger.e("5.0 softinputHeight:" + softInputHeight); //0
         }
@@ -210,8 +215,30 @@ public class EmotionInputDetector {
         if (softInputHeight > 0) {
             sp.edit().putInt(SHARE_PREFERENCE_TAG, softInputHeight).apply();
         }
-        Logger.e("softInputHeight:" + softInputHeight);
-        return softInputHeight;
+        Logger.e("softInputHeight:" + softInputHeight);*/
+//        return softInputHeight;
+
+
+        final View root = mActivity.getWindow().getDecorView();
+        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                root.getWindowVisibleDisplayFrame(rect);
+                Logger.e("rect.bottom:"+rect.bottom);
+                rootInvisibleHeight =root.getRootView().getHeight() - rect.bottom;
+                if (Build.VERSION.SDK_INT >= 20) {
+                    rootInvisibleHeight = rootInvisibleHeight - getSoftButtonsBarHeight();
+                }
+                if (rootInvisibleHeight < 0) {
+                    Logger.e("Warning: value of softInputHeight is below zero!");
+                }
+                if (rootInvisibleHeight > 0) {
+                    sp.edit().putInt(SHARE_PREFERENCE_TAG, rootInvisibleHeight).apply();
+                }
+            }
+        });
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

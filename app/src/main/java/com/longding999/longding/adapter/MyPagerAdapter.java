@@ -1,5 +1,7 @@
 package com.longding999.longding.adapter;
 
+
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,7 +19,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mList;
     private List<String> titleList;
 
-    public MyPagerAdapter(FragmentManager fm,List<Fragment> fragmentList) {
+
+    public MyPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
         mList = fragmentList;
         titleList = new ArrayList<>();

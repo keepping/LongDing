@@ -1,18 +1,18 @@
 package com.longding999.longding.basic;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-/******************************************************************
+/**
+ * ****************************************************************
  * Author:LCM
- * Date: 2016/3/9 11:06
- * Desc: 抽取Activity的基类,统一代码
+ * Date: 2016/3/31 11:38
+ * Desc:
  * *****************************************************************
  */
-public abstract class BasicActivity extends Activity {
-
+public abstract class BasicAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
