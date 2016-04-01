@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * ****************************************************************
  * Author:LCM
- * Date: 2016/3/31 18:25
+ * Date: 2016/4/1 10:11
  * Desc:
  * *****************************************************************
  */
-public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
+public class LiveTextAdapter extends BasicListAdapter<LiveInfo> {
 
-    public LiveVideoAdapter(List<LiveInfo> mList, Context mContext) {
+    public LiveTextAdapter(List<LiveInfo> mList, Context mContext) {
         super(mList, mContext);
     }
 
@@ -29,7 +29,7 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null){
-            convertView = mInflater.inflate(R.layout.item_live_video,null);
+            convertView = mInflater.inflate(R.layout.item_live_text,null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }else {
@@ -37,20 +37,17 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
         }
         LiveInfo liveInfo = mList.get(position);
         holder.getTvLiveBrif().setText(liveInfo.getLiveBrif());
-        holder.getTvLiveCategory().setText(liveInfo.getLiveCategroy());
         holder.getTvLiveTeacher().setText(liveInfo.getLiveTeacher());
-        holder.getTvLiveTime().setText(liveInfo.getLiveTime());
-
+        holder.getTvLiveTitle().setText(liveInfo.getLiveTitle());
 
         return convertView;
     }
 
     class ViewHolder{
-        private TextView tvLiveCategory;
         private TextView tvLiveTeacher;
         private TextView tvLiveBrif;
-        private TextView tvLiveTime;
-        private ImageView  ivLiveScreenShot;
+        private TextView tvLiveTitle;
+        private ImageView ivLiveScreenShot;
 
         private View view;
 
@@ -58,16 +55,17 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
             this.view = view;
         }
 
-        public TextView getTvLiveCategory() {
-            if(tvLiveCategory == null){
-                tvLiveCategory = (TextView) view.findViewById(R.id.tv_live_categroy);
+
+        public TextView getTvLiveTitle() {
+            if(tvLiveTitle == null){
+                tvLiveTitle = (TextView) view.findViewById(R.id.tv_live_title);
             }
-            return tvLiveCategory;
+            return tvLiveTitle;
         }
 
         public TextView getTvLiveTeacher() {
             if(tvLiveTeacher == null){
-               tvLiveTeacher = (TextView) view.findViewById(R.id.tv_live_teacher);
+                tvLiveTeacher = (TextView) view.findViewById(R.id.tv_live_teacher);
             }
             return tvLiveTeacher;
         }
@@ -79,12 +77,6 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
             return tvLiveBrif;
         }
 
-        public TextView getTvLiveTime() {
-            if(tvLiveTime == null){
-                tvLiveTime = (TextView) view.findViewById(R.id.tv_live_time);
-            }
-            return tvLiveTime;
-        }
 
         public ImageView getIvLiveScreenShot() {
             if(ivLiveScreenShot == null){

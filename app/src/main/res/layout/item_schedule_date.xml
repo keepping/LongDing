@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y79"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/litte_gray"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="#4c4c4c"
+            android:textSize="@dimen/x30"
+            android:text="10:00-12:00"
+            android:gravity="center"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/litte_gray"/>
+        <TextView
+            android:id="@+id/tv_teacher"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textColor="#4c4c4c"
+            android:textSize="@dimen/x30"
+            android:text="付老师/王老师"
+            android:gravity="center"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/litte_gray"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/litte_gray"/>
+
+</LinearLayout>

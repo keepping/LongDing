@@ -72,7 +72,7 @@ public class LiveFragment extends BasicFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mRadioGroup.getChildAt(position).setClickable(true);
+                ((RadioButton)mRadioGroup.getChildAt(position)).setChecked(true);
             }
 
             @Override

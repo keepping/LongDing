@@ -3,6 +3,7 @@ package com.longding999.longding;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.gensee.common.ServiceType;
 import com.gensee.entity.InitParam;
@@ -28,17 +29,17 @@ import com.gensee.player.OnPlayListener;
 import com.gensee.player.Player;
 import com.gensee.view.GSVideoView;
 import com.longding999.longding.adapter.MyPagerAdapter;
-import com.longding999.longding.basic.BasicActivity;
-import com.longding999.longding.basic.BasicAppCompatActivity;
 import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.ChatFragment;
 import com.longding999.longding.fragment.ClassicFragment;
 import com.longding999.longding.fragment.DisclaimerFragment;
 import com.longding999.longding.fragment.DiurnalFragment;
 import com.longding999.longding.fragment.MokeyFragment;
+import com.longding999.longding.fragment.ScheduleFragment;
 import com.longding999.longding.fragment.TeacherFragment;
 import com.longding999.longding.listener.GlobalOnItemClickManager;
 import com.longding999.longding.utils.Constant;
+import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.ShareUtils;
 import com.longding999.longding.view.EmotionInputDetector;
 import com.longding999.longding.view.ShareView;
@@ -87,6 +88,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
     private LinearLayout layoutReply;
     private LinearLayout layoutConent;
+    private RelativeLayout layoutVideo;
     private EmotionInputDetector mDetector;
     private ImageView imageEmotionButton;
     private EditText edtText;
@@ -102,13 +104,22 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     private List<Fragment> fragmentList;
 
     private InputMethodManager mInputManager;
+    private boolean isFirstPager = true;
+
+    private PowerManager pm;
+    private PowerManager.WakeLock wakeLock;
+
 
     @Override
     protected void bindView() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.activity_videolive);
+        pm = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MY TAG");
 
     }
+
+
 
     @Override
     protected void getIntents() {
@@ -133,6 +144,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
         layoutReply = (LinearLayout) findViewById(R.id.layout_reply);
         layoutConent = (LinearLayout) findViewById(R.id.layout_content);
+        layoutVideo = (RelativeLayout) findViewById(R.id.videoLayout);
 
         imageEmotionButton = (ImageView) findViewById(R.id.iv_emoji_button);
         edtText = (EditText) findViewById(R.id.edt_text);
@@ -168,8 +180,10 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(position ==0){
                     layoutReply.setVisibility(View.VISIBLE);
+                    isFirstPager = true;
                 }else{
                     layoutReply.setVisibility(View.GONE);
+                    isFirstPager = false;
                 }
             }
 
@@ -190,12 +204,13 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
         mFragments = new ArrayList<>();
         mFragments.add(new ChatFragment());
         mFragments.add(new TeacherFragment());
-        mFragments.add(new DiurnalFragment());
+        mFragments.add(new ScheduleFragment());
         mFragments.add(new DisclaimerFragment());
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setupWithViewPager(viewPager);
+
 
         mPlayer = new Player();
         initParam = new InitParam();
@@ -422,14 +437,23 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
 
     private void showInFullScreen() {
+
         if (!isLand) {
             linearLayout.setVisibility(View.GONE);
+            layoutReply.setVisibility(View.GONE);
+
             isLand = true;
             ivVideoShare.setVisibility(View.INVISIBLE);
             ivVideoSound.setVisibility(View.INVISIBLE);
             ivVideoVideo.setVisibility(View.INVISIBLE);
             ivVideoMagnify.setVisibility(View.INVISIBLE);
+
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+            params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+            layoutVideo.setLayoutParams(params);
+
         } else {
             linearLayout.setVisibility(View.VISIBLE);
             isLand = false;
@@ -437,6 +461,12 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
             ivVideoSound.setVisibility(View.VISIBLE);
             ivVideoVideo.setVisibility(View.VISIBLE);
             ivVideoMagnify.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+            params.height =(int) getResources().getDimension(R.dimen.y480);
+            layoutVideo.setLayoutParams(params);
+            if(isFirstPager){
+                layoutReply.setVisibility(View.VISIBLE);
+            }
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
@@ -485,12 +515,14 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
     @Override
     protected void onResume() {
+        wakeLock.acquire();
         initPlayer();
         super.onResume();
     }
 
     @Override
     protected void onStop() {
+        wakeLock.release();
         mPlayer.leave();
         mPlayer.release(this);
         super.onStop();
@@ -531,6 +563,12 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
             ivVideoVideo.setVisibility(View.VISIBLE);
             ivVideoMagnify.setVisibility(View.VISIBLE);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            if(isFirstPager){
+                layoutReply.setVisibility(View.VISIBLE);
+            }
+            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+            params.height = (int)getResources().getDimension(R.dimen.y480);
+            layoutVideo.setLayoutParams(params);
         } else {
             super.onBackPressed();
         }

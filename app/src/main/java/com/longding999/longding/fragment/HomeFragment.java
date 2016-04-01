@@ -1,6 +1,5 @@
 package com.longding999.longding.fragment;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -9,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.longding999.longding.R;
-import com.longding999.longding.VideoLiveActivity;
 import com.longding999.longding.adapter.ImagePageAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.utils.Logger;
@@ -28,7 +26,6 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
     private TextView tvTitle,tvLeft,tvRight;
     private ImageView imageLeft;
 
-    private ImageView ivTextLiew,ivVipLive,ivVideoLive;
 
     private ViewPager mViewPager;
     private ImagePageAdapter mAdapter;
@@ -91,7 +88,7 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     protected View initViews() {
-        View view = View.inflate(mActivity, R.layout.fragment_navigation, null);
+        View view = View.inflate(mActivity, R.layout.fragment_home, null);
         tvLeft = (TextView) view.findViewById(R.id.tv_left);
         tvRight = (TextView) view.findViewById(R.id.tv_right);
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
@@ -101,9 +98,6 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
         tvLeft.setVisibility(View.GONE);
         imageLeft.setVisibility(View.GONE);
 
-        ivTextLiew = (ImageView) view.findViewById(R.id.iv_textLive);
-        ivVipLive = (ImageView) view.findViewById(R.id.iv_vipLive);
-        ivVideoLive = (ImageView) view.findViewById(R.id.iv_videoLive);
 
         mViewPager = (ViewPager) view.findViewById(R.id.banner_ViewPager);
 
@@ -140,9 +134,7 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     protected void setListeners() {
-        ivVideoLive.setOnClickListener(this);
-        ivVipLive.setOnClickListener(this);
-        ivTextLiew.setOnClickListener(this);
+
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -178,20 +170,6 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_videoLive:
-                Intent videoIntent = new Intent(mActivity, VideoLiveActivity.class);
-                mActivity.startActivity(videoIntent);
-                break;
 
-            case R.id.iv_vipLive:
-                shortToast("即将开启");
-                break;
-
-            case R.id.iv_textLive:
-                shortToast("即将开启");
-                break;
-
-        }
     }
 }

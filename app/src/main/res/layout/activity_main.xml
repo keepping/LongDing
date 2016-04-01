@@ -27,6 +27,12 @@
             android:drawableTop="@drawable/slt_rb_home"
             android:checked="true"
             />
+        <RadioButton
+            android:id="@+id/rb_suggest"
+            android:text="@string/text_live"
+            style="@style/MyRadioButtonStyle"
+            android:drawableTop="@drawable/slt_rb_suggest"
+            />
 
         <RadioButton
             android:id="@+id/rb_market"
@@ -35,12 +41,7 @@
             android:drawableTop="@drawable/slt_rb_market"
             />
 
-        <RadioButton
-            android:id="@+id/rb_suggest"
-            android:text="@string/text_suggest"
-            style="@style/MyRadioButtonStyle"
-            android:drawableTop="@drawable/slt_rb_suggest"
-            />
+
 
         <RadioButton
             android:id="@+id/rb_mine"

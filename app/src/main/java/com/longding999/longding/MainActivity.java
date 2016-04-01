@@ -70,7 +70,7 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
         fragmentList.add(new LiveFragment());
-        fragmentList.add(new SuggestFragment());
+        fragmentList.add(new MarketFragment());
         userInfoFragment = new UserInfoFragment();
         fragmentList.add(userInfoFragment);
         fm.beginTransaction().add(R.id.frameLayout, fragmentList.get(currentTabIndex)).commit();

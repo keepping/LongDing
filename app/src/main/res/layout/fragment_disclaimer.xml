@@ -225,7 +225,8 @@
                 android:drawableTop="@drawable/slt_rb_favour_src"
                 android:background="@drawable/slt_rb_favour"
                 android:textColor="@drawable/slt_favour_textcolor"
-                android:button="@null"/>
+                android:button="@null"
+                android:textSize="@dimen/x24"/>
 
         </LinearLayout>
 

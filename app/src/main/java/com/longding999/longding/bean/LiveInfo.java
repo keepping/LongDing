@@ -7,15 +7,16 @@ package com.longding999.longding.bean;
  * Desc:
  * *****************************************************************
  */
-public class LiveVideoInfo {
-
+public class LiveInfo {
+    private String liveTitle;
     private String screenShot;
     private String liveCategroy;
     private String LiveTeacher;
     private String liveBrif;
     private String liveTime;
 
-    public LiveVideoInfo(String screenShot, String liveCategroy, String liveTeacher, String liveBrif, String liveTime) {
+    public LiveInfo(String liveTitle, String screenShot, String liveCategroy, String liveTeacher, String liveBrif, String liveTime) {
+        this.liveTitle = liveTitle;
         this.screenShot = screenShot;
         this.liveCategroy = liveCategroy;
         LiveTeacher = liveTeacher;
@@ -25,13 +26,22 @@ public class LiveVideoInfo {
 
     @Override
     public String toString() {
-        return "LiveVideoInfo{" +
-                "screenShot='" + screenShot + '\'' +
+        return "LiveInfo{" +
+                "liveTitle='" + liveTitle + '\'' +
+                ", screenShot='" + screenShot + '\'' +
                 ", liveCategroy='" + liveCategroy + '\'' +
                 ", LiveTeacher='" + LiveTeacher + '\'' +
                 ", liveBrif='" + liveBrif + '\'' +
                 ", liveTime='" + liveTime + '\'' +
                 '}';
+    }
+
+    public String getLiveTitle() {
+        return liveTitle;
+    }
+
+    public void setLiveTitle(String liveTitle) {
+        this.liveTitle = liveTitle;
     }
 
     public String getScreenShot() {
