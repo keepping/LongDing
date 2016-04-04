@@ -13,13 +13,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.bean.UserInfo;
+import com.longding999.longding.utils.DbHelper;
 import com.longding999.longding.utils.SDCardUtils;
 import com.longding999.longding.utils.SharedHelper;
+
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +40,7 @@ public class SplashActivity extends BasicActivity {
     private Button btnWElcome;
     private List<View> mList;
     private int[] imagIds = new int[]{R.mipmap.guidepage1,R.mipmap.guidepage2,R.mipmap.guidepage3};
+    private DbManager dbManager;
 
     @Override
     protected void bindView() {
@@ -111,6 +118,15 @@ public class SplashActivity extends BasicActivity {
 //            Logger.e("保存图片："+icon);
 //            Logger.e("保存地址："+cacheDir.getAbsolutePath()+"/icon/user.jpg");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        dbManager = DbHelper.getInstance().getDbManger();
+        String path = getApplicationContext().getCacheDir().getAbsolutePath() + "/icon/user.jpg";
+        try {
+            dbManager.save(new UserInfo(path,"PC9527","666",new Date().getTime(),0 ,"666","黄山","111111",1));
+        } catch (DbException e) {
             e.printStackTrace();
         }
     }

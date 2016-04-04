@@ -13,4 +13,6 @@
     <color name="text_minor">#999999</color>
     <color name="text_hint">#dadada</color>
     <color name="text_suggest">#4d4d4d</color>
+    <color name="colorMain">#EE0000</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

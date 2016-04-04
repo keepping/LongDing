@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/litte_gray">
+
+    <include
+        android:id="@+id/header_layout"
+        layout="@layout/header_mine" />
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_layout"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_service"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x40">
+
+            <ImageView
+                android:layout_width="@dimen/x50"
+                android:layout_height="match_parent"
+                android:src="@mipmap/iv_mine_service" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x20"
+                android:text="我的客服"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/x40"
+                android:src="@mipmap/iv_right_arrows" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/x40"
+            android:background="@color/text_hint" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_news"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x40">
+
+            <ImageView
+                android:layout_width="@dimen/x50"
+                android:layout_height="match_parent"
+                android:padding="@dimen/x8"
+                android:src="@mipmap/iv_mine_news" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x20"
+                android:text="新消息通知"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/x40"
+                android:src="@mipmap/iv_right_arrows" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/x40"
+            android:background="@color/text_hint" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_changePwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x40">
+
+            <ImageView
+                android:layout_width="@dimen/x50"
+                android:layout_height="match_parent"
+                android:padding="@dimen/x8"
+                android:src="@mipmap/iv_mine_changepwd" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x20"
+                android:text="修改密码"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/x40"
+                android:src="@mipmap/iv_right_arrows" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout1"
+        android:layout_marginTop="@dimen/y40"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_cleanCache"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x40">
+
+            <ImageView
+                android:layout_width="@dimen/x50"
+                android:layout_height="match_parent"
+                android:padding="@dimen/x6"
+                android:src="@mipmap/iv_mine_cleancache" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x20"
+                android:text="清理缓存"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34"
+                android:text="约0.00M"
+                android:paddingRight="@dimen/x40"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/x40"
+            android:background="@color/text_hint" />
+        <LinearLayout
+            android:id="@+id/layout_about"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x40">
+
+            <ImageView
+                android:layout_width="@dimen/x50"
+                android:layout_height="match_parent"
+                android:padding="@dimen/x8"
+                android:src="@mipmap/iv_mine_about" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x20"
+                android:text="关于我们"
+                android:textColor="@color/text_suggest"
+                android:textSize="@dimen/x34" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/x40"
+                android:src="@mipmap/iv_right_arrows" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:text="退出登录"
+        android:textColor="@color/colorMain"
+        android:textSize="@dimen/x34"/>
+
+
+</RelativeLayout>

@@ -5,12 +5,17 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.longding999.longding.R;
 import com.longding999.longding.adapter.DateListAdapter;
 import com.longding999.longding.adapter.SchedulePagerAdapter;
 import com.longding999.longding.basic.BasicFragment;
+import com.longding999.longding.view.CustomViewPager;
 import com.longding999.longding.view.HorizontalListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ****************************************************************
@@ -21,13 +26,15 @@ import com.longding999.longding.view.HorizontalListView;
  */
 public class ScheduleFragment extends BasicFragment implements View.OnClickListener{
     private ImageButton ivDateToLeft,ivDateToRight;
-    private HorizontalListView dateListView;
-    private ViewPager mViewPager;
+    private TextView tvDate;
+
+    private CustomViewPager mViewPager;
 
     private SchedulePagerAdapter pagerAdapter;
-    private DateListAdapter mAdapter;
 
     private int listPosition = 0;
+
+    private List<String> dateList = new ArrayList<>();
 
 
     @Override
@@ -40,8 +47,8 @@ public class ScheduleFragment extends BasicFragment implements View.OnClickListe
         View view =View.inflate(mActivity,R.layout.fragment_schedule,null);
         ivDateToLeft = (ImageButton) view.findViewById(R.id.iv_date_toleft);
         ivDateToRight = (ImageButton) view.findViewById(R.id.iv_date_toright);
-        dateListView = (HorizontalListView) view.findViewById(R.id.list_date);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (CustomViewPager) view.findViewById(R.id.viewPager);
+        tvDate = (TextView) view.findViewById(R.id.tv_date);
         return view;
     }
 
@@ -49,9 +56,13 @@ public class ScheduleFragment extends BasicFragment implements View.OnClickListe
     protected void initData() {
         pagerAdapter = new SchedulePagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(pagerAdapter);
-
-        mAdapter = new DateListAdapter(mActivity);
-        dateListView.setAdapter(mAdapter);
+        dateList.add("3月28日 星期一");
+        dateList.add("3月29日 星期二");
+        dateList.add("3月30日 星期三");
+        dateList.add("3月31日 星期四");
+        dateList.add("4月1日 星期五");
+        dateList.add("4月2日 星期六");
+        tvDate.setText(dateList.get(listPosition));
 
     }
 
@@ -68,7 +79,15 @@ public class ScheduleFragment extends BasicFragment implements View.OnClickListe
             @Override
             public void onPageSelected(int position) {
                 listPosition = position;
-                dateListView.scrollTo(position);
+                tvDate.setText(dateList.get(position));
+                if (listPosition == 0){
+                    ivDateToLeft.setEnabled(false);
+                }else if (listPosition == 5){
+                    ivDateToRight.setEnabled(false);
+                }else{
+                    ivDateToRight.setEnabled(true);
+                    ivDateToLeft.setEnabled(true);
+                }
             }
 
             @Override
@@ -85,19 +104,26 @@ public class ScheduleFragment extends BasicFragment implements View.OnClickListe
             case R.id.iv_date_toleft:
                 if (listPosition> 0){
                     listPosition-=1;
-                    dateListView.scrollTo(listPosition);
+                    tvDate.setText(dateList.get(listPosition));
                     mViewPager.setCurrentItem(listPosition);
+                    if(listPosition == 0){
+                        ivDateToLeft.setEnabled(false);
+                    }
+                    ivDateToRight.setEnabled(true);
                 }
                 break;
 
             case R.id.iv_date_toright:
-                if(listPosition<6) {
+                if(listPosition<5) {
                     listPosition +=1;
-                    dateListView.scrollTo(listPosition);
+                    tvDate.setText(dateList.get(listPosition));
                     mViewPager.setCurrentItem(listPosition);
+                    if(listPosition ==5){
+                        ivDateToRight.setEnabled(false);
+                    }
+                    ivDateToLeft.setEnabled(true);
                 }
                 break;
-
 
         }
     }

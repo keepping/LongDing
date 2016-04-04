@@ -2,13 +2,13 @@ package com.longding999.longding.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.longding999.longding.R;
 import com.longding999.longding.adapter.ScheduleDateAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.bean.ScheduleDateInfo;
+import com.longding999.longding.view.CalculHeightListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import java.util.List;
  * *****************************************************************
  */
 public class ScheduleDateFragment extends BasicFragment {
-    private TextView tvDate,tvNonFarm;
-    private ListView mListView;
+    private TextView tvDate, tvNonFarm;
+    private CalculHeightListView mListView;
     private List<ScheduleDateInfo> scheduleDateInfos;
     private ScheduleDateAdapter mAdapter;
 
-    private String  date;
+    private String date;
     private String week;
     private String teacher;
 
@@ -42,14 +42,14 @@ public class ScheduleDateFragment extends BasicFragment {
         View view = View.inflate(mActivity, R.layout.fragment_schedule_date, null);
         tvDate = (TextView) view.findViewById(R.id.tv_date);
         tvNonFarm = (TextView) view.findViewById(R.id.tv_non_farm);
-        mListView = (ListView) view.findViewById(R.id.listView);
+        mListView = (CalculHeightListView) view.findViewById(R.id.listView);
         return view;
     }
 
     @Override
     protected void initData() {
         scheduleDateInfos = new ArrayList<>();
-        switch (week){
+        switch (week) {
             case "星期一":
                 teacher = "王老师/张老师";
                 tvNonFarm.setVisibility(View.GONE);
@@ -82,11 +82,11 @@ public class ScheduleDateFragment extends BasicFragment {
         }
 
         tvDate.setText(date);
-        for (int i = 0;i< 7;i++){
-            scheduleDateInfos.add(new ScheduleDateInfo((9+i*2)+":00-"+(9+(i+1)*2)+":00",teacher));
+        for (int i = 0; i < 7; i++) {
+            scheduleDateInfos.add(new ScheduleDateInfo((9 + i * 2) + ":00-" + (9 + (i + 1) * 2) + ":00", teacher));
         }
 
-        mAdapter = new ScheduleDateAdapter(scheduleDateInfos,mActivity);
+        mAdapter = new ScheduleDateAdapter(scheduleDateInfos, mActivity);
         mListView.setAdapter(mAdapter);
     }
 

@@ -26,7 +26,7 @@
             android:button="@null"
             android:checked="true"
             android:text="视频直播"
-            android:textSize="@dimen/x32"
+            android:textSize="@dimen/x30"
             android:textColor="@drawable/slt_rb_color_text"/>
 
         <RadioButton
@@ -38,7 +38,7 @@
             android:button="@null"
             android:background="@drawable/slt_rb_live_right"
             android:text="文字直播"
-            android:textSize="@dimen/x32"
+            android:textSize="@dimen/x30"
             android:textColor="@drawable/slt_rb_color_text"/>
     </RadioGroup>
 

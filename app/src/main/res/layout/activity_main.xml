@@ -31,7 +31,7 @@
             android:id="@+id/rb_suggest"
             android:text="@string/text_live"
             style="@style/MyRadioButtonStyle"
-            android:drawableTop="@drawable/slt_rb_suggest"
+            android:drawableTop="@drawable/slt_rb_live"
             />
 
         <RadioButton

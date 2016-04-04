@@ -1,233 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="开仓时间"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="开仓时间"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_ordersend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2016-10-26 23:00"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2016-10-26 23:00"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="发布人"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_issuser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="风清扬"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="类型"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="现价做多"
+                    android:textColor="@color/rb_red"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="商品"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_goods"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="白银"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="价格"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="28300"
+                    android:textColor="@color/rb_red"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="止损价"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_stopLoss"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="28300"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="止赢价"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_stopProfit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="28600  28800  28900"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="特殊说明"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/x30" />
+
+                <TextView
+                    android:id="@+id/tv_special"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="无"
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x28" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <CheckBox
+                    android:id="@+id/cb_favour"
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="@dimen/y120"
+                    android:background="@drawable/slt_rb_favour"
+                    android:button="@null"
+                    android:drawableTop="@drawable/slt_rb_favour_src"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y14"
+                    android:text="834"
+                    android:textColor="@drawable/slt_favour_textcolor"
+                    android:textSize="@dimen/x24" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/y90"
             android:orientation="horizontal"
-            android:paddingTop="20dp">
+            android:padding="6dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/y90"
+                android:background="#f5f5f5"
+                android:textSize="@dimen/x24"
+                android:textColor="#808080"
+                android:text="@string/disclaimer"
+                />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="发布人"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="风清扬"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="类型"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="现价做多"
-                android:textColor="@color/rb_red"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="商品"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="白银"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="价格"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="28300"
-                android:textColor="@color/rb_red"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="止损价"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="28300"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="止赢价"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="28600  28800  28900"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="特殊说明"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/x30"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="无"
-                android:textColor="@color/text_suggest"
-                android:textSize="@dimen/x28"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            android:gravity="center_horizontal">
-
-            <CheckBox
-                android:layout_width="@dimen/x120"
-                android:layout_height="@dimen/y120"
-                android:text="834"
-                android:gravity="center"
-                android:paddingTop="@dimen/y14"
-                android:drawableTop="@drawable/slt_rb_favour_src"
-                android:background="@drawable/slt_rb_favour"
-                android:textColor="@drawable/slt_favour_textcolor"
-                android:button="@null"
-                android:textSize="@dimen/x24"/>
-
+                android:layout_weight="4"
+                android:layout_height="@dimen/y90"
+                android:background="#f5f5f5"
+                android:textSize="@dimen/x24"
+                android:textColor="#808080"
+                android:text="@string/disclaimer_info"/>
         </LinearLayout>
 
     </LinearLayout>

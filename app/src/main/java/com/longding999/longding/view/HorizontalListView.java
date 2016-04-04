@@ -292,7 +292,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         return true;
     }
 
-    private GestureDetector.SimpleOnGestureListener mOnGesture = new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector.OnGestureListener mOnGesture = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -362,6 +362,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             return viewRect.contains((int) e.getRawX(), (int) e.getRawY());
         }
     };
+
 
 
 

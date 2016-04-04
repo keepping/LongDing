@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.LiveFragment;
+import com.longding999.longding.fragment.MineFragment;
 import com.longding999.longding.fragment.SuggestFragment;
 import com.longding999.longding.fragment.HomeFragment;
 import com.longding999.longding.fragment.MarketFragment;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * 主布局
  */
-public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener, UserInfoFragment.UserInfoCallBack {
+public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener, MineFragment.MineCallBack{
     private RadioGroup mRadioGroup;
     private int currentTabIndex = 0;
     private List<Fragment> fragmentList;
@@ -32,7 +33,8 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     private FragmentTransaction ft;
     private RadioButton lastRadioButton;
 
-    private UserInfoFragment userInfoFragment;
+//    private UserInfoFragment userInfoFragment;
+    private MineFragment mineFragment;
 
 
     @Override
@@ -71,8 +73,10 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
         fragmentList.add(new HomeFragment());
         fragmentList.add(new LiveFragment());
         fragmentList.add(new MarketFragment());
-        userInfoFragment = new UserInfoFragment();
-        fragmentList.add(userInfoFragment);
+//        userInfoFragment = new UserInfoFragment();
+//        fragmentList.add(userInfoFragment);
+        mineFragment = new MineFragment();
+        fragmentList.add(mineFragment);
         fm.beginTransaction().add(R.id.frameLayout, fragmentList.get(currentTabIndex)).commit();
     }
 
@@ -98,9 +102,9 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1000 && resultCode == 1001) {
             int id = data.getIntExtra("_id", -1);
-            userInfoFragment.refreshFragment(id);
+            mineFragment.refreshViewById(id);
         } else if(requestCode == 2000 && resultCode == 2001){
-            userInfoFragment.onActivityResult(requestCode, resultCode,data);
+            mineFragment.onActivityResult(requestCode, resultCode,data);
         }else {
             lastRadioButton.setChecked(true);
         }
