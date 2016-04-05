@@ -12,8 +12,8 @@
         android:layout_weight="1"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/rb_gray"/>
+        android:layout_height="@dimen/y2"
+        android:background="#664d4d4d"/>
 
     <RadioGroup
         android:id="@+id/radioGroup"

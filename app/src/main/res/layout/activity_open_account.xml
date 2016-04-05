@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y400"
+        android:background="#e64646">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginTop="@dimen/y40"
+            android:text="快速开户"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x48" />
+
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="@dimen/x140"
+            android:layout_height="@dimen/y140"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x60"
+            android:layout_marginTop="@dimen/y40"
+            android:src="@mipmap/iv_openaccount_icon" />
+
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/image_icon"
+            android:layout_marginRight="@dimen/x120"
+            android:layout_toLeftOf="@id/image_icon"
+            android:text="三步骤"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x34" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_text1"
+            android:layout_alignTop="@id/tv_text1"
+            android:layout_toLeftOf="@id/tv_text1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/x60"
+                android:layout_height="@dimen/x2"
+                android:layout_marginRight="@dimen/x20"
+                android:background="@color/colorWhite" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_text1"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_toLeftOf="@id/tv_text1"
+                android:text="只需操作"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/x28" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_openaccount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:layout_below="@id/tv_text1"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginRight="@dimen/x40"
+            android:layout_marginTop="@dimen/y100"
+            android:background="@drawable/shape_rectangle_white"
+            android:text="立即开户"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x40" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x40"
+            android:src="@mipmap/iv_safety" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="钦龙科技承诺保证账户资金安全"
+            android:textColor="#e64646"
+            android:textSize="@dimen/x32" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x2"
+        android:background="@color/text_hint" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y40"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginTop="@dimen/y40"
+        android:text="轻松快速开户，您只要准备一下材料："
+        android:textColor="@color/text_suggest"
+        android:textSize="@dimen/x32" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y40">
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iv_open_tick"
+            android:layout_marginLeft="@dimen/x170"/>
+
+        <TextView
+            android:id="@+id/tv_text11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/image1"
+            android:text="您个人的手机电话号码"
+            android:textColor="@color/text_suggest"
+            android:textSize="@dimen/x32"
+            android:layout_toRightOf="@id/image1"
+            android:layout_marginLeft="@dimen/x40"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用于接收验证码及回访电话"
+            android:textColor="@color/text_minor"
+            android:textSize="@dimen/x24"
+            android:layout_toRightOf="@id/image1"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_below="@id/tv_text11"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y40">
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iv_open_tick"
+            android:layout_marginLeft="@dimen/x170"/>
+
+        <TextView
+            android:id="@+id/tv_text12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/image2"
+            android:text="您的身份证"
+            android:textColor="@color/text_suggest"
+            android:textSize="@dimen/x32"
+            android:layout_toRightOf="@id/image2"
+            android:layout_marginLeft="@dimen/x40"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用于验证个人信息"
+            android:textColor="@color/text_minor"
+            android:textSize="@dimen/x24"
+            android:layout_toRightOf="@id/image2"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_below="@id/tv_text12"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y40">
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iv_open_tick"
+            android:layout_marginLeft="@dimen/x170"/>
+
+        <TextView
+            android:id="@+id/tv_text13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/image3"
+            android:text="银行卡"
+            android:textColor="@color/text_suggest"
+            android:textSize="@dimen/x32"
+            android:layout_toRightOf="@id/image3"
+            android:layout_marginLeft="@dimen/x40"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本人有效的借记卡"
+            android:textColor="@color/text_minor"
+            android:textSize="@dimen/x24"
+            android:layout_toRightOf="@id/image3"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_below="@id/tv_text13"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_layout" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_pitch"
+            style="@style/collegeRadioButton"
+            android:checked="true"
+            android:text="沥青"
+            android:textSize="@dimen/x36"/>
+
+        <RadioButton
+            android:id="@+id/rb_silver"
+            style="@style/collegeRadioButton"
+            android:text="白银" />
+
+        <RadioButton
+            android:id="@+id/rb_copper"
+            style="@style/collegeRadioButton"
+            android:text="铜" />
+
+        <RadioButton
+            android:id="@+id/rb_terminology"
+            style="@style/collegeRadioButton"
+            android:text="专业术语" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"
+        android:background="#cccccc" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

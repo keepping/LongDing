@@ -66,8 +66,25 @@
 
         </activity>
 
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity">
 
+        </activity>
+
+        <activity android:name=".DiurnalActivity">
+
+        </activity>
+
+        <activity android:name=".TeacherActivity">
+
+        </activity>
+
+        <activity android:name=".CollegeActivity">
+
+        </activity>
+
+        <activity android:name=".OpenAccountActivity">
+
+        </activity>
 
 
         <meta-data

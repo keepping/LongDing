@@ -1,14 +1,21 @@
 package com.longding999.longding.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.longding999.longding.CollegeActivity;
+import com.longding999.longding.DiurnalActivity;
+import com.longding999.longding.OpenAccountActivity;
 import com.longding999.longding.R;
+import com.longding999.longding.TeacherActivity;
 import com.longding999.longding.adapter.ImagePageAdapter;
+import com.longding999.longding.adapter.TeacherAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.utils.Logger;
 
@@ -31,6 +38,10 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
     private ImagePageAdapter mAdapter;
     private List<ImageView> imageViews;
     private int currentItem = Integer.MAX_VALUE/2;
+
+    private LinearLayout layoutLive,layoutDiurnal,layoutCollege,layoutTeacher;
+
+    private OnLiveClickListener onLiveClickListener;
 
     /**
      * 请求更新显示的View。
@@ -83,7 +94,7 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     protected void initBundle() {
-
+        onLiveClickListener = (OnLiveClickListener) mActivity;
     }
 
     @Override
@@ -94,12 +105,16 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
         imageLeft = (ImageView) view.findViewById(R.id.image_left);
         tvTitle.setText("钦龙");
-        tvRight.setVisibility(View.GONE);
         tvLeft.setVisibility(View.GONE);
         imageLeft.setVisibility(View.GONE);
 
 
         mViewPager = (ViewPager) view.findViewById(R.id.banner_ViewPager);
+
+        layoutLive = (LinearLayout) view.findViewById(R.id.layout_live);
+        layoutDiurnal = (LinearLayout) view.findViewById(R.id.layout_diurnal);
+        layoutCollege = (LinearLayout) view.findViewById(R.id.layout_college);
+        layoutTeacher = (LinearLayout) view.findViewById(R.id.layout_teacher);
 
         return view;
     }
@@ -129,6 +144,13 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
         mViewPager.setCurrentItem(currentItem);//默认在中间，使用户看不到边界
         //开始轮播效果
         handler.sendEmptyMessageDelayed(MSG_UPDATE_IMAGE, MSG_DELAY);
+
+        layoutLive.setOnClickListener(this);
+        layoutDiurnal.setOnClickListener(this);
+        layoutCollege.setOnClickListener(this);
+        layoutTeacher.setOnClickListener(this);
+
+        tvRight.setOnClickListener(this);
 
     }
 
@@ -170,6 +192,37 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_live:
+                onLiveClickListener.onLiveClick();
+                break;
 
+            case R.id.layout_diurnal:
+                Intent diurnalIntent = new Intent(mActivity, DiurnalActivity.class);
+                mActivity.startActivity(diurnalIntent);
+                break;
+
+            case R.id.layout_college:
+                Intent collegeIntent = new Intent(mActivity, CollegeActivity.class);
+                mActivity.startActivity(collegeIntent);
+                break;
+
+            case R.id.layout_teacher:
+                Intent teacherIntent = new Intent(mActivity, TeacherActivity.class);
+                mActivity.startActivity(teacherIntent);
+                break;
+
+            case R.id.tv_right:
+                Intent openIntent = new Intent(mActivity, OpenAccountActivity.class);
+                mActivity.startActivity(openIntent);
+                break;
+
+
+        }
+    }
+
+
+    public interface OnLiveClickListener{
+        void onLiveClick();
     }
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50"
+        android:layout_marginTop="@dimen/y60"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/x5"
+            android:layout_height="match_parent"
+            android:background="@color/colorMain"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/x34"
+            android:textColor="@color/colorMain"
+            android:text="白银策略："
+            android:layout_marginLeft="@dimen/x35"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y30"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x40"
+        android:textSize="@dimen/x32"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_normal"
+        android:text="       白银是贵金属中备受瞩目的品种， 不仅可以作为足值的财富持有，亦是重要的工业用品，
+其作用不言而喻。 而金属金银历来是受世界各国经济变动影响较为剧烈的品种。 基本面经济的变化， 重要国家重要数据的发布都会对白银的走势产生持续的影响， 所以基本面和技术面都应作为判断白银走势的重要因素。
+"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50"
+        android:layout_marginTop="@dimen/y60"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/x5"
+            android:layout_height="match_parent"
+            android:background="@color/colorMain"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/x34"
+            android:textColor="@color/colorMain"
+            android:text="上个交易日回顾："
+            android:layout_marginLeft="@dimen/x35"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y30"
+        android:paddingLeft="@dimen/x40"
+        android:paddingRight="@dimen/x40"
+        android:textSize="@dimen/x32"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_normal"
+        android:text="     上周四白银全天呈震荡整理之势， 分时图上早盘形成双顶后回落， 至 15:00 创下全日最
+低点 3141，随后逐步回升。晚间 20：30 之后受美国 3 月 19 日当周初请失业金人数的利空消息影响，银价再次回落，最终收于最低点 3141。
+"/>
+</LinearLayout>

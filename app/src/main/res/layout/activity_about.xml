@@ -40,7 +40,8 @@
                 android:textColor="@color/colorMain"
                 android:textSize="@dimen/x34"
                 android:text="联系方式：13333333333"
-                android:layout_marginTop="@dimen/y60"/>
+                android:layout_marginTop="@dimen/y60"
+                android:paddingBottom="@dimen/y60"/>
         </LinearLayout>
 
     </ScrollView>

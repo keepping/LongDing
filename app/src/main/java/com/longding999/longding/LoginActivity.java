@@ -58,7 +58,7 @@ public class LoginActivity extends BasicActivity implements View.OnClickListener
         tvTitle.setText("登录");
         tvLeft.setVisibility(View.GONE);
         tvRight.setText("注册");
-        imageLeft.setImageDrawable(getResources().getDrawable(R.mipmap.close));
+        imageLeft.setImageResource(R.mipmap.iv_close);
 
         edtPhoneNumber = (EditText) findViewById(R.id.edt_phoneNumber);
         edtPassWord = (EditText) findViewById(R.id.edt_password);

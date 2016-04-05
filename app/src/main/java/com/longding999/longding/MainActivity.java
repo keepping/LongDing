@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 主布局
  */
-public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener, MineFragment.MineCallBack{
+public class MainActivity extends BasicFragmentActivity implements RadioGroup.OnCheckedChangeListener, MineFragment.MineCallBack,HomeFragment.OnLiveClickListener{
     private RadioGroup mRadioGroup;
     private int currentTabIndex = 0;
     private List<Fragment> fragmentList;
@@ -146,5 +146,10 @@ public class MainActivity extends BasicFragmentActivity implements RadioGroup.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLiveClick() {
+        ((RadioButton)mRadioGroup.getChildAt(1)).setChecked(true);
     }
 }

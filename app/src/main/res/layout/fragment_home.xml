@@ -23,6 +23,35 @@
         android:paddingTop="@dimen/y40">
 
         <LinearLayout
+            android:id="@+id/layout_live"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_icon_live" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:gravity="center_horizontal"
+                android:text="直播"
+                android:textColor="#404040"
+                android:textSize="@dimen/x26" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/layout_diurnal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,8 +67,8 @@
                 android:layout_marginTop="@dimen/y20"
                 android:gravity="center_horizontal"
                 android:text="日刊"
-                android:textSize="@dimen/x26"
-                android:textColor="#404040"/>
+                android:textColor="#404040"
+                android:textSize="@dimen/x26" />
         </LinearLayout>
 
         <View
@@ -48,6 +77,7 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/layout_college"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -61,10 +91,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y20"
+                android:gravity="center_horizontal"
                 android:text="学院"
-                android:textSize="@dimen/x26"
                 android:textColor="#404040"
-                android:gravity="center_horizontal" />
+                android:textSize="@dimen/x26" />
 
         </LinearLayout>
 
@@ -74,6 +104,7 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/layout_teacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -86,38 +117,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:gravity="center_horizontal"
                 android:text="老师"
-                android:textSize="@dimen/x26"
                 android:textColor="#404040"
-                android:layout_marginTop="@dimen/y20"
-                android:gravity="center_horizontal" />
+                android:textSize="@dimen/x26" />
         </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/iv_icon_openaccount" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y20"
-                android:text="开户"
-                android:textSize="@dimen/x26"
-                android:textColor="#404040"
-                android:gravity="center_horizontal" />
-
-        </LinearLayout>
     </LinearLayout>
 
 

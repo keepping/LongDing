@@ -199,7 +199,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.image_left:
-                onBackPressed();
+                setResult(2001);
+                finish();
                 break;
 
             case R.id.tv_right:
