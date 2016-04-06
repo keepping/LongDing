@@ -12,7 +12,7 @@ public class Constant {
     public static String VIDEO_NUMBER = "49440104";
 
     //老师信息地址
-    public static String TEACHER_INFO = "http://139.196.202.93/Teacher/api/teacher";
+    public static String TEACHER_INFO = "http://120.55.80.81:8000/api/TeacherInfo/GetTeacherList";
 
     //日刊信息地址
     public static String DIURNAL_INFO = "http://139.196.202.93/Diurnal/api/diurnal";
@@ -20,5 +20,9 @@ public class Constant {
 
     //建议地址
     public static String SUGGEST_INFO = "http://192.168.0.84:8006/Suggestions/api/suggest/";
+
+
+    //视频直播列表
+    public static String VIDEO_LIVE_LIST = "http://120.55.80.81:8000/api/RoomInfo/GetRoomList";
 
 }

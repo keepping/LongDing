@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.longding999.longding.R;
 import com.longding999.longding.basic.BasicListAdapter;
 import com.longding999.longding.bean.LiveInfo;
+import com.longding999.longding.bean.VideoListBean;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import java.util.List;
  * Desc:
  * *****************************************************************
  */
-public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
+public class LiveVideoAdapter extends BasicListAdapter<VideoListBean> {
 
-    public LiveVideoAdapter(List<LiveInfo> mList, Context mContext) {
+    public LiveVideoAdapter(List<VideoListBean> mList, Context mContext) {
         super(mList, mContext);
     }
 
@@ -35,11 +36,10 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        LiveInfo liveInfo = mList.get(position);
-        holder.getTvLiveBrif().setText(liveInfo.getLiveBrif());
-        holder.getTvLiveCategory().setText(liveInfo.getLiveCategroy());
-        holder.getTvLiveTeacher().setText(liveInfo.getLiveTeacher());
-        holder.getTvLiveTime().setText(liveInfo.getLiveTime());
+        VideoListBean videoListBean = mList.get(position);
+        holder.getTvLiveBrif().setText(videoListBean.getIntroduce());
+        holder.getTvLiveName().setText(videoListBean.getRoomName());
+        holder.getTvLiveTime().setText(videoListBean.getBeginDate());
 
 
         return convertView;
@@ -47,7 +47,7 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
 
     class ViewHolder{
         private TextView tvLiveCategory;
-        private TextView tvLiveTeacher;
+        private TextView tvLiveName;
         private TextView tvLiveBrif;
         private TextView tvLiveTime;
         private ImageView  ivLiveScreenShot;
@@ -65,11 +65,11 @@ public class LiveVideoAdapter extends BasicListAdapter<LiveInfo> {
             return tvLiveCategory;
         }
 
-        public TextView getTvLiveTeacher() {
-            if(tvLiveTeacher == null){
-               tvLiveTeacher = (TextView) view.findViewById(R.id.tv_live_teacher);
+        public TextView getTvLiveName() {
+            if(tvLiveName == null){
+                tvLiveName = (TextView) view.findViewById(R.id.tv_live_name);
             }
-            return tvLiveTeacher;
+            return tvLiveName;
         }
 
         public TextView getTvLiveBrif() {

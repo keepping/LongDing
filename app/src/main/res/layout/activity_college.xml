@@ -17,22 +17,26 @@
             style="@style/collegeRadioButton"
             android:checked="true"
             android:text="沥青"
-            android:textSize="@dimen/x36"/>
+            android:textColor="@drawable/slt_rb_maintext_color"
+            android:textSize="@dimen/x36" />
 
         <RadioButton
             android:id="@+id/rb_silver"
             style="@style/collegeRadioButton"
-            android:text="白银" />
+            android:text="白银"
+            android:textColor="@drawable/slt_rb_maintext_color" />
 
         <RadioButton
             android:id="@+id/rb_copper"
             style="@style/collegeRadioButton"
-            android:text="铜" />
+            android:text="铜"
+            android:textColor="@drawable/slt_rb_maintext_color" />
 
         <RadioButton
             android:id="@+id/rb_terminology"
             style="@style/collegeRadioButton"
-            android:text="专业术语" />
+            android:text="专业术语"
+            android:textColor="@drawable/slt_rb_maintext_color" />
     </RadioGroup>
 
     <View

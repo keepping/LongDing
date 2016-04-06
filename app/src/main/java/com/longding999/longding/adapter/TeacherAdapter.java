@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.longding999.longding.R;
 import com.longding999.longding.basic.BasicListAdapter;
+import com.longding999.longding.bean.TeacherBean;
 import com.longding999.longding.bean.TeacherInfo;
 
 import java.util.List;
@@ -18,9 +19,9 @@ import java.util.List;
  * Desc: 老师页面适配器
  * *****************************************************************
  */
-public class TeacherAdapter extends BasicListAdapter<TeacherInfo> {
+public class TeacherAdapter extends BasicListAdapter<TeacherBean> {
 
-    public TeacherAdapter(List<TeacherInfo> mList, Context mContext) {
+    public TeacherAdapter(List<TeacherBean> mList, Context mContext) {
         super(mList, mContext);
     }
 
@@ -34,9 +35,9 @@ public class TeacherAdapter extends BasicListAdapter<TeacherInfo> {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        TeacherInfo teacherInfo = mList.get(position);
-        holder.getTvTeacherName().setText(teacherInfo.getTeachername());
-        holder.getTvTeacherContent().setText(teacherInfo.getTeachercontent());
+        TeacherBean teacherBean = mList.get(position);
+        holder.getTvTeacherName().setText(teacherBean.getNickname());
+        holder.getTvTeacherContent().setText(teacherBean.getIntroduce());
 
         return convertView;
     }

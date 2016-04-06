@@ -26,20 +26,20 @@
             android:text="@string/text_home"
             android:drawableTop="@drawable/slt_rb_home"
             android:checked="true"
-            />
+            android:textColor="@drawable/slt_rb_maintext_color"/>
         <RadioButton
             android:id="@+id/rb_suggest"
             android:text="@string/text_live"
             style="@style/MyRadioButtonStyle"
             android:drawableTop="@drawable/slt_rb_live"
-            />
+            android:textColor="@drawable/slt_rb_maintext_color"/>
 
         <RadioButton
             android:id="@+id/rb_market"
             android:text="@string/text_market"
             style="@style/MyRadioButtonStyle"
             android:drawableTop="@drawable/slt_rb_market"
-            />
+            android:textColor="@drawable/slt_rb_maintext_color"/>
 
 
 
@@ -48,7 +48,7 @@
             android:text="@string/text_mine"
             style="@style/MyRadioButtonStyle"
             android:drawableTop="@drawable/slt_rb_mine"
-           />
+            android:textColor="@drawable/slt_rb_maintext_color"/>
     </RadioGroup>
 
 </LinearLayout>

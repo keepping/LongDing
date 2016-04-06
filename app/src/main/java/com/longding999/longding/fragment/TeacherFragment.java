@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,7 +18,9 @@ import com.longding999.longding.R;
 import com.longding999.longding.TeacherInfoActivity;
 import com.longding999.longding.adapter.TeacherAdapter;
 import com.longding999.longding.basic.BasicFragment;
+import com.longding999.longding.bean.TeacherBean;
 import com.longding999.longding.bean.TeacherInfo;
+import com.longding999.longding.bean.TeacherListBean;
 import com.longding999.longding.utils.Constant;
 import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.VolleyUtils;
@@ -36,13 +39,13 @@ import java.util.List;
  * Desc: 老师 碎片
  * *****************************************************************
  */
-public class TeacherFragment extends BasicFragment{
+public class TeacherFragment extends BasicFragment {
     private SwipeRefreshLayout mRefreshLayout;
     private ListView mListView;
 
     private TeacherAdapter mAdapter;
     private RequestQueue mQueue;
-    private List<TeacherInfo> mList;
+    private List<TeacherBean> mList;
 
     @Override
     protected void initBundle() {
@@ -61,29 +64,16 @@ public class TeacherFragment extends BasicFragment{
     protected void initData() {
         mQueue = VolleyUtils.getmQueue();
         mList = new ArrayList<>();
+        mAdapter = new TeacherAdapter(mList, mActivity);
+        mListView.setAdapter(mAdapter);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.TEACHER_INFO, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-//                Logger.e(s);
-
-                try {
-                    JSONArray jsonArray = new JSONArray(s);
-//                    Logger.e(jsonArray.toString());
-                    for (int i = 0;i <jsonArray.length();i ++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String id = object.getString("Id");
-                        String teachername = object.getString("teachername");
-                        String teachercontent = object.getString("teachercontent");
-                        String detailcontent = object.getString("detailcontent");
-                        mList.add(new TeacherInfo(id,teachername,teachercontent,detailcontent));
-                    }
-                    mAdapter = new TeacherAdapter(mList,mActivity);
-                    mListView.setAdapter(mAdapter);
-//                     Logger.e(mList.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                TeacherListBean teacherListBean = JSON.parseObject(s, TeacherListBean.class);
+                List<TeacherBean> teacher = teacherListBean.getTeacher();
+                mList.clear();
+                mList.addAll(teacher);
+                mAdapter.notifyDataSetChanged();
 
 
             }
@@ -91,6 +81,7 @@ public class TeacherFragment extends BasicFragment{
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Logger.e(volleyError.getMessage());
+                shortToast("网络请求失败");
             }
         });
 
@@ -112,7 +103,7 @@ public class TeacherFragment extends BasicFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mActivity, TeacherInfoActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("teacherId",mList.get(position).getId());
+                bundle.putString("teacherId", mList.get(position).getTid() + "");
                 intent.putExtras(bundle);
                 mActivity.startActivity(intent);
 //                shortToast("点击了第"+(position+1)+"个老师");

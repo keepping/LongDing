@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_layout" />
+
+    <com.longding999.longding.view.ClearEditText
+        android:id="@+id/edt_phoneNumber"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="@dimen/y140"
+        android:background="@drawable/shape_corner_white"
+        android:hint="请输入手机号"
+        android:inputType="number"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x40"
+        android:layout_marginTop="@dimen/x40"
+        android:background="@drawable/shape_corner_red"
+        android:text="下一步"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/x34" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x40"
+        android:layout_marginTop="@dimen/y40"
+        android:text="输入手机号，专属客服会联系您指导开户"
+        android:textColor="@color/text_suggest"
+        android:textSize="@dimen/x28" />
+
+</LinearLayout>

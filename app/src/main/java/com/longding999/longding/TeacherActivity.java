@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,7 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.longding999.longding.adapter.TeacherAdapter;
 import com.longding999.longding.basic.BasicActivity;
+import com.longding999.longding.bean.TeacherBean;
 import com.longding999.longding.bean.TeacherInfo;
+import com.longding999.longding.bean.TeacherListBean;
 import com.longding999.longding.utils.Constant;
 import com.longding999.longding.utils.Logger;
 import com.longding999.longding.utils.VolleyUtils;
@@ -43,7 +46,7 @@ public class TeacherActivity extends BasicActivity implements View.OnClickListen
     private ListView mListView;
     private TeacherAdapter mAdapter;
     private RequestQueue mQueue;
-    private List<TeacherInfo> mList;
+    private List<TeacherBean> mList;
 
     @Override
     protected void bindView() {
@@ -78,7 +81,7 @@ public class TeacherActivity extends BasicActivity implements View.OnClickListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TeacherActivity.this, TeacherInfoActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("teacherId",mList.get(position).getId());
+                bundle.putString("teacherId",mList.get(position).getTid()+"");
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                shortToast("点击了第"+(position+1)+"个老师");
@@ -93,26 +96,11 @@ public class TeacherActivity extends BasicActivity implements View.OnClickListen
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.TEACHER_INFO, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-//                Logger.e(s);
-
-                try {
-                    JSONArray jsonArray = new JSONArray(s);
-//                    Logger.e(jsonArray.toString());
-                    for (int i = 0;i <jsonArray.length();i ++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String id = object.getString("Id");
-                        String teachername = object.getString("teachername");
-                        String teachercontent = object.getString("teachercontent");
-                        String detailcontent = object.getString("detailcontent");
-                        mList.add(new TeacherInfo(id,teachername,teachercontent,detailcontent));
-                    }
-                    mAdapter = new TeacherAdapter(mList,TeacherActivity.this);
-                    mListView.setAdapter(mAdapter);
-//                     Logger.e(mList.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                TeacherListBean teacherListBean = JSON.parseObject(s, TeacherListBean.class);
+                List<TeacherBean> teacher = teacherListBean.getTeacher();
+                mList.addAll(teacher);
+                mAdapter = new TeacherAdapter(mList,TeacherActivity.this);
+                mListView.setAdapter(mAdapter);
 
 
             }

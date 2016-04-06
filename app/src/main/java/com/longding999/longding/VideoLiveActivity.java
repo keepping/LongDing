@@ -31,6 +31,7 @@ import com.gensee.view.GSVideoView;
 import com.longding999.longding.adapter.MyPagerAdapter;
 import com.longding999.longding.basic.BasicFragmentActivity;
 import com.longding999.longding.fragment.ChatFragment;
+import com.longding999.longding.fragment.ChatWebFragment;
 import com.longding999.longding.fragment.ClassicFragment;
 import com.longding999.longding.fragment.DisclaimerFragment;
 import com.longding999.longding.fragment.DiurnalFragment;
@@ -78,22 +79,22 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     private boolean isvideo = true;
 
     private PopupWindow shareWindow;
-    private ShareView shareWechat,shareWcpyq,shareQQ,shareQzone,shareSns,shareSina;
+    private ShareView shareWechat, shareWcpyq, shareQQ, shareQzone, shareSns, shareSina;
     private ImageView ivShareClose;
 
     private ShareUtils mShareUtils;
     private UMImage shareImage;
-    private String  shareUrl;
+    private String shareUrl;
 
-
-    private LinearLayout layoutReply;
-    private LinearLayout layoutConent;
-    private RelativeLayout layoutVideo;
-    private EmotionInputDetector mDetector;
-    private ImageView imageEmotionButton;
-    private EditText edtText;
-    private Button btnReply;
-    private LinearLayout emotionLayout;
+//
+//    private LinearLayout layoutReply;
+//    private LinearLayout layoutConent;
+//    private RelativeLayout layoutVideo;
+//    private EmotionInputDetector mDetector;
+//    private ImageView imageEmotionButton;
+//    private EditText edtText;
+//    private Button btnReply;
+//    private LinearLayout emotionLayout;
 
     private Button btnEmotionClassic, btnEmotionMokey;
 
@@ -120,7 +121,6 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     }
 
 
-
     @Override
     protected void getIntents() {
 
@@ -142,7 +142,8 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
         ivVideoSound = (ImageView) findViewById(R.id.iv_video_sound);
         ivVideoVideo = (ImageView) findViewById(R.id.iv_video_video);
 
-        layoutReply = (LinearLayout) findViewById(R.id.layout_reply);
+        //本地聊天模块
+/*        layoutReply = (LinearLayout) findViewById(R.id.layout_reply);
         layoutConent = (LinearLayout) findViewById(R.id.layout_content);
         layoutVideo = (RelativeLayout) findViewById(R.id.videoLayout);
 
@@ -159,7 +160,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
                 .bindToEmotionButton(imageEmotionButton)
                 .bindToContent(layoutConent)
                 .setEmotionView(emotionLayout)
-                .build();
+                .build();*/
 
 
     }
@@ -172,19 +173,19 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
         ivVideoShare.setOnClickListener(this);
         ivVideoMagnify.setOnClickListener(this);
         ivVideoBack.setOnClickListener(this);
-        btnEmotionClassic.setOnClickListener(this);
+      /*  btnEmotionClassic.setOnClickListener(this);
         btnEmotionMokey.setOnClickListener(this);
-
+*/
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position ==0){
-                    layoutReply.setVisibility(View.VISIBLE);
-                    isFirstPager = true;
-                }else{
-                    layoutReply.setVisibility(View.GONE);
-                    isFirstPager = false;
-                }
+//                if(position ==0){
+//                    layoutReply.setVisibility(View.VISIBLE);
+//                    isFirstPager = true;
+//                }else{
+//                    layoutReply.setVisibility(View.GONE);
+//                    isFirstPager = false;
+//                }
             }
 
             @Override
@@ -202,8 +203,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     @Override
     protected void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(new ChatFragment());
-        mFragments.add(new TeacherFragment());
+        mFragments.add(new ChatWebFragment());
         mFragments.add(new ScheduleFragment());
         mFragments.add(new DisclaimerFragment());
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
@@ -215,20 +215,21 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
         mPlayer = new Player();
         initParam = new InitParam();
         mShareUtils = new ShareUtils(VideoLiveActivity.this);
-        shareImage = new UMImage(VideoLiveActivity.this,"http://www.umeng.com/images/pic/social/integrated_3.png");
+        shareImage = new UMImage(VideoLiveActivity.this, "http://www.umeng.com/images/pic/social/integrated_3.png");
         shareUrl = "http://liveqianlong.com";
         initPlayer();
         initPopWindow();
 
 
-        fm = getSupportFragmentManager();
+        //本地聊天系统，表情包
+/*        fm = getSupportFragmentManager();
         fragmentList = new ArrayList<>();
         fragmentList.add(new ClassicFragment());
         fragmentList.add(new MokeyFragment());
         fm.beginTransaction().add(R.id.framelayout, fragmentList.get(currentTabIndex)).commit();
         GlobalOnItemClickManager globalOnItemClickListener = GlobalOnItemClickManager.getInstance();
         globalOnItemClickListener.attachToEditText(this, edtText);
-        mInputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        mInputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);*/
     }
 
     /**
@@ -254,7 +255,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
                     hideVideButton();
 
                 }
-                 doubleClick();
+                doubleClick();
                 break;
 
             case R.id.iv_video_back:
@@ -263,7 +264,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
                 break;
 
             case R.id.iv_video_share:
-                showPop(rootLayout, Gravity.TOP,0,0);
+                showPop(rootLayout, Gravity.TOP, 0, 0);
                 hideVideButton();
                 break;
 
@@ -281,30 +282,30 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
                 break;
 
             case R.id.iv_shareclose:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
                 break;
 
             //分享到qq好友
             case R.id.share_qq:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
-                mShareUtils.ShareAction(SHARE_MEDIA.QQ,"龙鼎直播",shareUrl);
+                mShareUtils.ShareAction(SHARE_MEDIA.QQ, "龙鼎直播", shareUrl);
                 break;
 
             //分享到QQ空间
             case R.id.share_qzone:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
-                mShareUtils.ShareAction(SHARE_MEDIA.QZONE,"龙鼎直播",shareUrl);
+                mShareUtils.ShareAction(SHARE_MEDIA.QZONE, "龙鼎直播", shareUrl);
                 break;
 
             //分享到新浪微博
             case R.id.share_sina:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
 //                mShareUtils.ShareAction(SHARE_MEDIA.SINA,"龙鼎直播",shareUrl);
@@ -313,26 +314,26 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
             //分享到短信
             case R.id.share_sns:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
-                mShareUtils.ShareAction(SHARE_MEDIA.SMS,"龙鼎直播",shareUrl);
+                mShareUtils.ShareAction(SHARE_MEDIA.SMS, "龙鼎直播", shareUrl);
                 break;
 
             //分享到微信
             case R.id.share_wechat:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
-                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN,"龙鼎直播",shareUrl);
+                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN, "龙鼎直播", shareUrl);
                 break;
 
             //分享到微信朋友圈
             case R.id.share_wcpyq:
-                if(shareWindow.isShowing()){
+                if (shareWindow.isShowing()) {
                     shareWindow.dismiss();
                 }
-                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN_CIRCLE,"龙鼎直播",shareUrl);
+                mShareUtils.ShareAction(SHARE_MEDIA.WEIXIN_CIRCLE, "龙鼎直播", shareUrl);
                 break;
 
 
@@ -348,6 +349,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
                 break;
         }
     }
+
     /**
      * 根据选中radiobutton下表显示fragment
      *
@@ -372,24 +374,25 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     }
 
 
-    private void setVideo(){
-        if(isvideo){
+    private void setVideo() {
+        if (isvideo) {
             mPlayer.videoSet(true);
             isvideo = false;
-        }else{
+        } else {
             mPlayer.videoSet(false);
             isvideo = true;
         }
     }
+
     /**
      * 开关视频声音
      */
-    private void setAudio(){
-        if(isaudio){
+    private void setAudio() {
+        if (isaudio) {
             mPlayer.audioSet(true);
             ivVideoSound.setImageResource(R.mipmap.video_sound_closed);
             isaudio = false;
-        }else{
+        } else {
             mPlayer.audioSet(false);
             ivVideoSound.setImageResource(R.mipmap.video_sound_open);
             isaudio = true;
@@ -440,7 +443,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
         if (!isLand) {
             linearLayout.setVisibility(View.GONE);
-            layoutReply.setVisibility(View.GONE);
+//            layoutReply.setVisibility(View.GONE);
 
             isLand = true;
             ivVideoShare.setVisibility(View.INVISIBLE);
@@ -450,9 +453,9 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
-            params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
-            layoutVideo.setLayoutParams(params);
+//            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+//            params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+//            layoutVideo.setLayoutParams(params);
 
         } else {
             linearLayout.setVisibility(View.VISIBLE);
@@ -461,17 +464,17 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
             ivVideoSound.setVisibility(View.VISIBLE);
             ivVideoVideo.setVisibility(View.VISIBLE);
             ivVideoMagnify.setVisibility(View.VISIBLE);
-            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
-            params.height =(int) getResources().getDimension(R.dimen.y480);
-            layoutVideo.setLayoutParams(params);
-            if(isFirstPager){
-                layoutReply.setVisibility(View.VISIBLE);
-            }
+//            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+//            params.height =(int) getResources().getDimension(R.dimen.y480);
+//            layoutVideo.setLayoutParams(params);
+//            if(isFirstPager){
+//                layoutReply.setVisibility(View.VISIBLE);
+//            }
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 
-    private void initPopWindow(){
+    private void initPopWindow() {
         View view = View.inflate(VideoLiveActivity.this, R.layout.popupwindows_share, null);
         shareWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         shareWindow.setAnimationStyle(R.style.popwin_anim_style);
@@ -495,9 +498,8 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
 
     /**
      * 显示popWindow
-     *
-     * */
-    public void showPop(View parent,int postion, int x, int y) {
+     */
+    public void showPop(View parent, int postion, int x, int y) {
         //设置popwindow显示位置
         shareWindow.showAtLocation(parent, postion, x, y);
         //获取popwindow焦点
@@ -532,7 +534,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get( this ).onActivityResult( requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
     }
 
@@ -563,12 +565,12 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
             ivVideoVideo.setVisibility(View.VISIBLE);
             ivVideoMagnify.setVisibility(View.VISIBLE);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            if(isFirstPager){
-                layoutReply.setVisibility(View.VISIBLE);
-            }
-            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
-            params.height = (int)getResources().getDimension(R.dimen.y480);
-            layoutVideo.setLayoutParams(params);
+//            if(isFirstPager){
+//                layoutReply.setVisibility(View.VISIBLE);
+//            }
+//            LinearLayout.LayoutParams params =(LinearLayout.LayoutParams)layoutVideo.getLayoutParams();
+//            params.height = (int)getResources().getDimension(R.dimen.y480);
+//            layoutVideo.setLayoutParams(params);
         } else {
             super.onBackPressed();
         }
@@ -577,7 +579,7 @@ public class VideoLiveActivity extends BasicFragmentActivity implements OnPlayLi
     @Override
     protected void onRestart() {
         super.onRestart();
-       // rootLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        // rootLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
     @Override

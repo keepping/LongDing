@@ -1,9 +1,7 @@
 package com.longding999.longding;
 
-import android.content.Intent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,19 +10,18 @@ import com.longding999.longding.basic.BasicActivity;
 /**
  * ****************************************************************
  * Author:LCM
- * Date: 2016/4/5 16:12
- * Desc: 开户页面
+ * Date: 2016/4/6 15:43
+ * Desc:
  * *****************************************************************
  */
-public class OpenAccountActivity extends BasicActivity implements View.OnClickListener{
-    private TextView tvTitle,tvLeft,tvRight;
-    private ImageView imageLeft;
+public class ChangeNameActivity extends BasicActivity implements View.OnClickListener{
 
-    private Button btnOpenAccount;
+    private TextView tvTitle, tvLeft, tvRight;
+    private ImageView imageLeft;
 
     @Override
     protected void bindView() {
-        setContentView(R.layout.activity_open_account);
+        setContentView(R.layout.activity_chagename);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
@@ -39,17 +36,14 @@ public class OpenAccountActivity extends BasicActivity implements View.OnClickLi
         tvLeft = (TextView) findViewById(R.id.tv_left);
         tvRight = (TextView) findViewById(R.id.tv_right);
         imageLeft = (ImageView) findViewById(R.id.image_left);
-        tvTitle.setText("开户");
+        tvTitle.setText("昵称");
         tvLeft.setVisibility(View.GONE);
         tvRight.setVisibility(View.GONE);
-
-        btnOpenAccount = (Button) findViewById(R.id.btn_openaccount);
     }
 
     @Override
     protected void setListeners() {
         imageLeft.setOnClickListener(this);
-        btnOpenAccount.setOnClickListener(this);
     }
 
     @Override
@@ -65,18 +59,6 @@ public class OpenAccountActivity extends BasicActivity implements View.OnClickLi
                 break;
 
 
-            case R.id.btn_openaccount:
-                Intent intent = new Intent(this,OpenAccountSecondActivity.class);
-                startActivityForResult(intent,3000);
-                break;
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==3000&&resultCode==3001){
-            finish();
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

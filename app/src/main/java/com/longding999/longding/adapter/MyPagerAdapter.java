@@ -25,7 +25,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         mList = fragmentList;
         titleList = new ArrayList<>();
         titleList.add("聊天");
-        titleList.add("老师");
         titleList.add("课程表");
         titleList.add("即时建议");
     }

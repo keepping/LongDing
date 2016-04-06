@@ -1,6 +1,5 @@
 package com.longding999.longding;
 
-import android.content.Intent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -12,19 +11,18 @@ import com.longding999.longding.basic.BasicActivity;
 /**
  * ****************************************************************
  * Author:LCM
- * Date: 2016/4/5 16:12
- * Desc: 开户页面
+ * Date: 2016/4/6 13:38
+ * Desc:
  * *****************************************************************
  */
-public class OpenAccountActivity extends BasicActivity implements View.OnClickListener{
+public class OpenAccountThirdActivity extends BasicActivity implements View.OnClickListener{
     private TextView tvTitle,tvLeft,tvRight;
     private ImageView imageLeft;
 
-    private Button btnOpenAccount;
-
+    private Button btnBack;
     @Override
     protected void bindView() {
-        setContentView(R.layout.activity_open_account);
+        setContentView(R.layout.activity_openaccount_third);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
@@ -43,13 +41,13 @@ public class OpenAccountActivity extends BasicActivity implements View.OnClickLi
         tvLeft.setVisibility(View.GONE);
         tvRight.setVisibility(View.GONE);
 
-        btnOpenAccount = (Button) findViewById(R.id.btn_openaccount);
+        btnBack = (Button) findViewById(R.id.btn_back);
     }
 
     @Override
     protected void setListeners() {
         imageLeft.setOnClickListener(this);
-        btnOpenAccount.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
@@ -61,22 +59,15 @@ public class OpenAccountActivity extends BasicActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.image_left:
-                onBackPressed();
-                break;
-
-
-            case R.id.btn_openaccount:
-                Intent intent = new Intent(this,OpenAccountSecondActivity.class);
-                startActivityForResult(intent,3000);
+            case R.id.btn_back:
+               onBackPressed();
                 break;
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==3000&&resultCode==3001){
-            finish();
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onBackPressed() {
+        setResult(3001);
+        finish();
     }
 }

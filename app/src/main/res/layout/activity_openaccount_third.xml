@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/header_layout"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="专属客服会在10分钟内联系您，"
+        android:textColor="@color/text_suggest"
+        android:textSize="@dimen/x40"
+        android:layout_marginTop="@dimen/y200"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="请保持手机通畅"
+        android:textColor="@color/text_suggest"
+        android:textSize="@dimen/x40"
+        android:layout_marginTop="@dimen/y20"/>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/x280"
+        android:layout_height="@dimen/y80"
+        android:background="@drawable/shape_corner_red"
+        android:textSize="@dimen/x34"
+        android:text="返回首页"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y100"/>
+
+</LinearLayout>

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/litte_gray"
     android:orientation="vertical">
 
     <include layout="@layout/header_layout"></include>
@@ -21,17 +22,18 @@
             <LinearLayout
                 android:id="@+id/layout_usericon"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/usericon"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -40,8 +42,8 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_usericon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/x80"
                     android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/user"
@@ -50,7 +52,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
@@ -63,17 +65,18 @@
             <LinearLayout
                 android:id="@+id/layout_username"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/userusername"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:id="@+id/tv_username"
@@ -89,7 +92,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
@@ -99,98 +102,25 @@
                 android:background="@color/rb_gray"></View>
 
 
-            <LinearLayout
-                android:id="@+id/layout_userrank"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/userrank"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_userrank"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_weight="1"
-                    android:gravity="right|center_vertical"
-                    android:paddingRight="10dp"
-                    android:text="VIP"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingRight="10dp"
-                    android:src="@mipmap/icon_right" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/rb_gray"></View>
 
 
-            <LinearLayout
-                android:id="@+id/layout_userphone"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/userphone"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_userphone"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_weight="1"
-                    android:gravity="right|center_vertical"
-                    android:paddingRight="10dp"
-                    android:text="15178679291"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingRight="10dp"
-                    android:src="@mipmap/icon_right" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/rb_gray"></View>
 
 
             <LinearLayout
                 android:id="@+id/layout_userpwd"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/pwd"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -200,35 +130,36 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/rb_gray"></View>
+                android:background="@color/rb_gray"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/rb_gray"></View>
+                android:layout_marginTop="@dimen/y60"
+                android:background="@color/rb_gray"/>
 
             <LinearLayout
                 android:id="@+id/layout_usergander"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/usergander"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:id="@+id/tv_usergander"
@@ -244,7 +175,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
@@ -256,17 +187,18 @@
             <LinearLayout
                 android:id="@+id/layout_userbirthday"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/userbirthday"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:id="@+id/tv_userbirthday"
@@ -282,7 +214,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
@@ -295,17 +227,18 @@
             <LinearLayout
                 android:id="@+id/layout_userQQ"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/userqq"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:id="@+id/tv_userQQ"
@@ -321,7 +254,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 
@@ -334,17 +267,18 @@
             <LinearLayout
                 android:id="@+id/layout_userlocation"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/y100"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x40"
                     android:gravity="center_vertical"
                     android:text="@string/userlocation"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/text_suggest"
+                    android:textSize="@dimen/x32" />
 
                 <TextView
                     android:id="@+id/tv_userlocation"
@@ -360,7 +294,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/x40"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
 

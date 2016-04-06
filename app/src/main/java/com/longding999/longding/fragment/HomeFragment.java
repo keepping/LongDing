@@ -158,7 +158,7 @@ public class HomeFragment extends BasicFragment implements View.OnClickListener{
     protected void setListeners() {
 
 
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

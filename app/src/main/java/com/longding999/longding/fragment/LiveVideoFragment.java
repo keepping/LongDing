@@ -5,11 +5,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.longding999.longding.R;
 import com.longding999.longding.VideoLiveActivity;
 import com.longding999.longding.adapter.LiveVideoAdapter;
 import com.longding999.longding.basic.BasicFragment;
 import com.longding999.longding.bean.LiveInfo;
+import com.longding999.longding.bean.VideoListBean;
+import com.longding999.longding.utils.Constant;
+import com.longding999.longding.utils.Logger;
+import com.longding999.longding.utils.VolleyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +33,10 @@ import java.util.List;
  */
 public class LiveVideoFragment extends BasicFragment {
     private ListView mListView;
-    private List<LiveInfo> mList;
+    private List<VideoListBean> mList;
     private LiveVideoAdapter mAdapter;
+
+    private RequestQueue mQueue;
 
     @Override
     protected void initBundle() {
@@ -40,13 +52,29 @@ public class LiveVideoFragment extends BasicFragment {
 
     @Override
     protected void initData() {
+        mQueue = VolleyUtils.getmQueue();
         mList = new ArrayList<>();
-        mList.add(new LiveInfo(null,null,"原油","王老师","    以实际行情走势为导向，以蜡烛图交易信号为基础，稳扎稳打，步步为营","(12:00 - 14:00)"));
-        mList.add(new LiveInfo(null,null,"白银","张老师","    以实际行情走势为导向，以蜡烛图交易信号为基础，稳扎稳打，步步为营","(14:00 - 16:00)"));
-        mList.add(new LiveInfo(null,null,"原油","王老师","    以实际行情走势为导向，以蜡烛图交易信号为基础，稳扎稳打，步步为营","(12:00 - 14:00)"));
-        mList.add(new LiveInfo(null,null,"白银","张老师","    以实际行情走势为导向，以蜡烛图交易信号为基础，稳扎稳打，步步为营","(14:00 - 16:00)"));
         mAdapter = new LiveVideoAdapter(mList,mActivity);
         mListView.setAdapter(mAdapter);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VIDEO_LIVE_LIST, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                List<VideoListBean> videoListBeen = JSON.parseArray(s, VideoListBean.class);
+                mList.clear();
+                mList.addAll(videoListBeen);
+                mAdapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Logger.e(volleyError.getMessage());
+                shortToast("网络请求失败");
+            }
+        });
+
+        mQueue.add(stringRequest);
     }
 
     @Override
@@ -54,8 +82,10 @@ public class LiveVideoFragment extends BasicFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mActivity, VideoLiveActivity.class);
-                mActivity.startActivity(intent);
+                if(position==0) {
+                    Intent intent = new Intent(mActivity, VideoLiveActivity.class);
+                    mActivity.startActivity(intent);
+                }
             }
         });
     }

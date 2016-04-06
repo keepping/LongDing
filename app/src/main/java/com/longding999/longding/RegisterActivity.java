@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.longding999.longding.basic.BasicActivity;
 import com.longding999.longding.bean.UserInfo;
 import com.longding999.longding.utils.DbHelper;
+import com.longding999.longding.view.ClearEditText;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -28,7 +29,7 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
     private TextView tvTitle,tvLeft,tvRight;
     private ImageView imageLeft;
 
-    private EditText edtPhoneNumber,edtVerification,edtPassWord,edtPwdAgain;
+    private ClearEditText edtPhoneNumber,edtVerification,edtPassWord,edtPwdAgain;
     private CheckBox cbFollowRule;
     private Button btnSubmit,btnVerification;
 
@@ -55,10 +56,10 @@ public class RegisterActivity extends BasicActivity implements View.OnClickListe
         tvLeft.setVisibility(View.GONE);
         tvRight.setVisibility(View.GONE);
 
-        edtPhoneNumber = (EditText) findViewById(R.id.edt_phoneNumber);
-        edtVerification = (EditText) findViewById(R.id.edt_verification);
-        edtPassWord = (EditText) findViewById(R.id.edt_password);
-        edtPwdAgain = (EditText) findViewById(R.id.edt_passwordagain);
+        edtPhoneNumber = (ClearEditText) findViewById(R.id.edt_phoneNumber);
+        edtVerification = (ClearEditText) findViewById(R.id.edt_verification);
+        edtPassWord = (ClearEditText) findViewById(R.id.edt_password);
+        edtPwdAgain = (ClearEditText) findViewById(R.id.edt_passwordagain);
         cbFollowRule = (CheckBox) findViewById(R.id.cb_followrule);
         btnVerification = (Button) findViewById(R.id.btn_verifition);
         btnSubmit = (Button) findViewById(R.id.btn_submit);

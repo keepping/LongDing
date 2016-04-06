@@ -62,8 +62,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
     private int _id;
 
     private RoundedImageView ivUserIcon;
-    private TextView tvUserName,tvUserRank,tvUserPhone,tvUserQQ,tvUserLocation,tvUserBirthday,tvUserGander;
-    private LinearLayout layoutUserIcon,layoutUserName,layoutUserRank,layoutUserPhone,layoutUserQQ,layoutUserLocation,layoutUserBirthday,layoutUserGander,layoutUserPwd;
+    private TextView tvUserName,tvUserQQ,tvUserLocation,tvUserBirthday,tvUserGander;
+    private LinearLayout layoutUserIcon,layoutUserName,layoutUserQQ,layoutUserLocation,layoutUserBirthday,layoutUserGander,layoutUserPwd;
 
     private DbManager dbManager;
 
@@ -105,9 +105,7 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
         ivUserIcon = (RoundedImageView) findViewById(R.id.iv_usericon);
         tvUserBirthday = (TextView) findViewById(R.id.tv_userbirthday);
         tvUserGander = (TextView) findViewById(R.id.tv_usergander);
-        tvUserPhone = (TextView) findViewById(R.id.tv_userphone);
         tvUserName = (TextView) findViewById(R.id.tv_username);
-        tvUserRank = (TextView) findViewById(R.id.tv_userrank);
         tvUserQQ = (TextView) findViewById(R.id.tv_userQQ);
         tvUserLocation = (TextView) findViewById(R.id.tv_userlocation);
 
@@ -116,10 +114,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
         layoutUserIcon = (LinearLayout) findViewById(R.id.layout_usericon);
         layoutUserLocation = (LinearLayout) findViewById(R.id.layout_userlocation);
         layoutUserName = (LinearLayout) findViewById(R.id.layout_username);
-        layoutUserPhone = (LinearLayout) findViewById(R.id.layout_userphone);
         layoutUserQQ = (LinearLayout) findViewById(R.id.layout_userQQ);
         layoutUserPwd = (LinearLayout) findViewById(R.id.layout_userpwd);
-        layoutUserRank = (LinearLayout) findViewById(R.id.layout_userrank);
 
         if(MyApplication.isLOLLIPOP){
             layoutUserBirthday.setBackgroundResource(R.drawable.ripple_bg);
@@ -127,10 +123,8 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
             layoutUserIcon.setBackgroundResource(R.drawable.ripple_bg);
             layoutUserLocation.setBackgroundResource(R.drawable.ripple_bg);
             layoutUserName.setBackgroundResource(R.drawable.ripple_bg);
-            layoutUserPhone.setBackgroundResource(R.drawable.ripple_bg);
             layoutUserQQ.setBackgroundResource(R.drawable.ripple_bg);
             layoutUserPwd.setBackgroundResource(R.drawable.ripple_bg);
-            layoutUserRank.setBackgroundResource(R.drawable.ripple_bg);
         }
     }
 
@@ -139,9 +133,7 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
         imageLeft.setOnClickListener(this);
         tvRight.setOnClickListener(this);
 
-        layoutUserRank.setOnClickListener(this);
         layoutUserPwd.setOnClickListener(this);
-        layoutUserPhone.setOnClickListener(this);
         layoutUserQQ.setOnClickListener(this);
         layoutUserLocation.setOnClickListener(this);
         layoutUserBirthday.setOnClickListener(this);
@@ -176,9 +168,7 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
             userPhone = userInfo.getUserPhone();
 
             tvUserName.setText(userName);
-            tvUserRank.setText("VIP"+ userRank);
             tvUserQQ.setText(userQQ);
-            tvUserPhone.setText(userInfo.getUserPhone());
             tvUserBirthday.setText(DateParseUtils.parseLongToString(userBirthDay));
             if(userGander==0){
                 tvUserGander.setText("男");
@@ -233,14 +223,6 @@ public class UserSetActivity extends BasicCountryActivity implements View.OnClic
 
             case R.id.layout_userQQ:
                 changeUserQQ();
-                break;
-
-            case R.id.layout_userphone:
-                shortToast("点击了用户手机！");
-                break;
-
-            case R.id.layout_userrank:
-                shortToast("点击了用户等级！");
                 break;
 
             default:
